@@ -2,12 +2,11 @@
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
+	padding-left: 5%;
+	gap: 20px;
 	align-items: center;
-	padding-left: 7%;
 	position: relative;
 	.avatar-wrapper {
-		position: absolute;
-		transform: translateX(-125%);
 	}
 	.message {
 		background-color: #f1f1f1;

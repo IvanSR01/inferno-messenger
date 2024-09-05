@@ -12,12 +12,12 @@ export default function useOnline() {
 				isOnline,
 			})
 
-			document.addEventListener('DOMContentLoaded', () => handleChange(true))
+			handleChange(true)
 			document.addEventListener('beforeunload', () => handleChange(false))
 
 
 			return () => {
-				document.removeEventListener('DOMContentLoaded', () => handleChange(true))
+				// document.removeEventListener('DOMContentLoaded', () => handleChange(true))
 				document.removeEventListener('beforeunload', () => handleChange(false))
 			}
 		}
