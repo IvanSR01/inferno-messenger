@@ -1,0 +1,28 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 10px;
+	font-size: 20px;
+	a {
+		border-radius: 10px;
+		padding: 5px 10px;
+		transition: background-color 0.5s ease-in-out;
+	}
+	a:hover {
+		background-color: #eeeeee;
+	}
+	.select {
+		background-color: #eeeeee;
+	}
+	@media (max-width: 1200px) {
+		display: none;
+	}
+}
+
+.mobil {
+	@media (min-width: 1201px) {
+		display: none;
+	} 
+	display: flex;
+}

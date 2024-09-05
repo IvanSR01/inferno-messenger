@@ -1,0 +1,77 @@
+.wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 7%;
+	position: relative;
+	.avatar-wrapper {
+		position: absolute;
+		transform: translateX(-125%);
+	}
+	.message {
+		background-color: #f1f1f1;
+		padding: 10px 45px 15px 10px;
+		border-radius: 15px;
+		font-size: 16px;
+		width: auto;
+		max-width: 70%;
+		position: relative;
+		@media (max-width: 800px) {
+			max-width: 80%;
+		}
+		.user-name {
+			font-weight: bold;
+			font-size: 14px;
+			margin: 0;
+			color: #000;
+		}
+
+		.detalis {
+			right: 6%;
+			bottom: 5px;
+			position: absolute;
+			font-size: 12px;
+		}
+	}
+}
+
+.is-my-message {
+	justify-content: flex-end;
+	padding-right: 7%;
+	.message {
+		background-color: #181818;
+		color: #fff;
+
+	}
+	.hiz-last {
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 15px;
+		&::before {
+			border-color: transparent transparent transparent #181818;
+			left: auto;
+			right: -10px;
+		}
+	}
+}
+
+.hiz-first {
+	padding: 20px 45px 15px 10px;
+}
+
+.hiz-last {
+	border-bottom-left-radius: 0px;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: -10px;
+		transform: translateY(-50%);
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 10px 10px 10px 0;
+		border-color: transparent #f1f1f1 transparent transparent;
+	}
+}

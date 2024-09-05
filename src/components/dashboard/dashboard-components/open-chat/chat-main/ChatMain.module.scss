@@ -1,0 +1,22 @@
+.wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	max-height: 77dvh;
+	.messages {
+		max-height: 40%;
+		height: 70dvh;
+		overflow-y: scroll;
+		display: flex;
+		justify-content: flex-end;
+		flex-direction: column;
+		gap: 5px;
+	}
+	.noMessages {
+		height: 70dvh;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}

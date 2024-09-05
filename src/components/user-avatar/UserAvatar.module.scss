@@ -1,0 +1,49 @@
+.containerAvatar {
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  img,
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .alt {
+		margin: 0 !important;
+		padding: 0 !important;
+    width: 100%;
+    height: 100%;
+    background-color: #686868;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+		align-items: center;
+    font-size: 30px;
+		text-transform: uppercase;
+  }
+}
+
+.ultraSmall {
+	width: 20px !important;
+	height: 20px !important;
+}
+
+.small {
+  width: 40px;
+  height: 40px;
+}
+.medium {
+  width: 50px;
+  height: 50px;
+}
+.large {
+  width: 60px;
+  height: 60px;
+}
+
+.altStyle {
+  border-radius: 0px;
+  width: 100% !important;
+  height: 100% !important;
+}

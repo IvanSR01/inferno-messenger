@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--foreground-rgb: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--foreground-rgb: 255, 255, 255;
+	}
+}
+
+body {
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+}
+
+body {
+	--mainColor: #000;
+	--mainInverseColor: #fff;
+	--mainBackground: #fff;
+	--mainShadow: #e6e6e6;
+	--mainBorder: #dfdfdf;
+}
+
+body[data-theme='dark'] {
+	--mainColor: #fff;
+	--mainInverseColor: #000;
+	--mainBackground: #131317;
+	--mainShadow: #0e0e0e;
+	--mainBorder: #2f2b2b;
+}

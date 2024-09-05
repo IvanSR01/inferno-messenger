@@ -1,0 +1,30 @@
+.header {
+	height: 100px;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	border-bottom: 2px solid #dfdfdf;
+	.header-content {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		h3 {
+			font-size: clamp(20px, 2vw, 30px);
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+		.search {
+			width: clamp(100px, 50%, 400px);
+			// border: 2px solid #000;
+			border-radius: 10px;
+			.search-icon {
+				color: #b0b0b0;
+			}
+			@media (max-width: 1200px) {
+				display: none;
+			}
+		}
+	}
+}

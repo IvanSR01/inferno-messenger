@@ -1,0 +1,9 @@
+.wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	.content {
+		max-width: 1800px;
+		width: 90%;
+	}
+}

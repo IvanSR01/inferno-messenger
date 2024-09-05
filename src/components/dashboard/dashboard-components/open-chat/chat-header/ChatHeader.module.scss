@@ -1,0 +1,35 @@
+.wrapper {
+	width: 100%;
+	height: 125px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 5%;
+	.back {
+		font-size: 20px;
+		cursor: pointer;
+	}
+	.center {
+		margin-top: 20px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		.detalls {
+			text-align: center;
+			.name {
+				color: #000;
+				font-weight: bold;
+				font-size: clamp(16px, 4.5vw, 20px);
+			}
+			.last-seen {
+				font-size: clamp(10px, 3vw, 14px);
+				color: #505050;
+			}
+			.status {
+				font-size: clamp(10px, 3vw, 14px);
+				font-weight: bold;
+				color: #007bff;
+			}
+		}
+	}
+}
