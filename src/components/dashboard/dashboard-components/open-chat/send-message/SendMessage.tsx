@@ -8,6 +8,7 @@ import SendMenu from './send-menu/SendMenu'
 import { useMessageController } from './useMessageController'
 import { useSendMessage } from '@/hooks/useMessages'
 import { Icons } from './icons'
+import { toast } from 'react-toastify'
 
 interface SendMessageProps {
 	chatId: number
@@ -32,7 +33,7 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 
 	const sendMessage = useSendMessage()
 	const handleSend = () => {
-		if (!messageContent) return
+		if (!messageContent) return toast.error('Напиши хоть чета дебил')
 		sendMessage({
 			content: messageContent,
 			chatId,
@@ -42,15 +43,19 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 		setMediaUrl('')
 	}
 	useEffect(() => {
-		const handler = (e: any) => {
-			if (e.code === 'enter') handleSend()
+		const handler = (e: KeyboardEvent) => {
+			if (e.code === 'Enter') {
+				handleSend()
+			}
 		}
+
 		document.addEventListener('keydown', handler)
 
 		return () => {
 			document.removeEventListener('keydown', handler)
 		}
-	})
+	}, []) 
+
 	return (
 		<ReactMediaRecorder
 			audio={messageType === 'audio'}

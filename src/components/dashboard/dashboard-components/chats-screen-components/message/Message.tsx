@@ -6,6 +6,7 @@ import { formatDate } from '@/shared/utils/formatDate'
 import clsx from 'clsx'
 import UserAvatar from '@/components/user-avatar/UserAvatar'
 import parse from 'html-react-parser'
+import { addFullUrl } from '@/shared/utils/addFullUrl'
 interface Props {
 	message: Message | undefined
 	me: User | undefined
@@ -13,7 +14,12 @@ interface Props {
 	isFirstUserMessage?: boolean
 }
 
-const MessageUI: FC<Props> = ({ message, me, isLastUserMessage, isFirstUserMessage }) => {
+const MessageUI: FC<Props> = ({
+	message,
+	me,
+	isLastUserMessage,
+	isFirstUserMessage,
+}) => {
 	return (
 		<div
 			className={clsx(styles.wrapper, {
@@ -29,16 +35,18 @@ const MessageUI: FC<Props> = ({ message, me, isLastUserMessage, isFirstUserMessa
 					/>
 				)}
 			</div>
-			<div className={clsx(styles.message, {
-				[styles['hiz-last']]: isLastUserMessage, 
-				[styles['hiz-first']]: isFirstUserMessage
-			})}>
+			<div
+				className={clsx(styles.message, {
+					[styles['hiz-last']]: isLastUserMessage,
+					[styles['hiz-first']]: isFirstUserMessage,
+				})}
+			>
 				{message?.user?.id !== me?.id && isLastUserMessage && (
-					<div className={styles['user-name']}>
-						{message?.user?.fullName}
-					</div>
+					<div className={styles['user-name']}>{message?.user?.fullName}</div>
 				)}
-				<div className={styles['message-content']}>{parse(message?.content as string)}</div>
+				<div className={styles['message-content']}>
+					{parse(addFullUrl(message?.content as string))}
+				</div>
 				<div className={styles.detalis}>
 					{formatDate(message?.sendTime as string)}
 				</div>
