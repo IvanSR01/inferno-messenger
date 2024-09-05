@@ -5,7 +5,7 @@ class MessageService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io("http://localhost:4200");
+    this.socket = io("https://messenger-elhy.onrender.com/");
   }
 
   public on(event: string, callback: (data: any) => void): void {
