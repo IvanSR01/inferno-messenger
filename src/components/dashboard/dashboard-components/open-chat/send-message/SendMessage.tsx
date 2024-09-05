@@ -114,7 +114,7 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 								<FaCircleStop />
 							) : (
 								<div onClick={messageType === 'text' ? handleSend : () => {}}>
-									{Icons[messageType as any]}
+									{Icons[messageType]}
 								</div>
 							)}
 						</div>

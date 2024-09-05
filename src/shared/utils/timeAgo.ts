@@ -1,6 +1,6 @@
 export function timeAgo(dateString: string) {
-	const now = new Date();
-	const date = new Date(dateString);
+	const now: any = new Date();
+	const date: any = new Date(dateString);
 
 	const diffInSeconds = Math.floor((now - date) / 1000);
 	const diffInMinutes = Math.floor(diffInSeconds / 60);

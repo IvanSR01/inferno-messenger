@@ -1,7 +1,13 @@
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
-import Dashboard from '@/screens/dashboard/Dashboard'
 
-const page: FC = () => {
+const Dashboard = dynamic(
+	() => import('../../../screens/dashboard/Dashboard'),
+	{
+		ssr: false,
+	}
+)
+
+export default function ChatPage() {
 	return <Dashboard name="chats" />
 }
-export default page

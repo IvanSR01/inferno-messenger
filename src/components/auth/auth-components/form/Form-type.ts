@@ -1,8 +1,8 @@
-import { IInput } from '../../input.data'
+import { Input } from "@/screens/auth/auth.data"
 
 export type FormProps = {
 	isPending: boolean
-	inputData: IInput[]
+	inputData: Input[]
 	onSubmit: any
 	name: 'login' | 'register'
 }
