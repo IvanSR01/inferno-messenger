@@ -10,6 +10,7 @@ export const sizes = {
   small: styles.small,
   medium: styles.medium,
   large: styles.large,
+	big: styles.big
 };
 
 const UserAvatar: FC<UserAvartarProps> = ({ size, src, alt, altStyle }) => {

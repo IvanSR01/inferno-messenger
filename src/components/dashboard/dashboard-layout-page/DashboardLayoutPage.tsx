@@ -9,6 +9,7 @@ interface Props extends PropsWithChildren {}
 
 const DashboardLayoutPage: FC<Props> = ({ children }) => {
 	useOnline()
+	
 	return (
 		<div className={styles.layout}>
 			<DashboardHeader />

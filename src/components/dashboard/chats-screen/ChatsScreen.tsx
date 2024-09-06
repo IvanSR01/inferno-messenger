@@ -8,10 +8,12 @@ import OpenChat from '../dashboard-components/open-chat/OpenChat'
 const ChatsScreen: FC = () => {
 	return (
 		<DashboardLayoutPage>
-			<div className={styles.main}>
-				<Chats />
-				<OpenChat/>
-			</div>
+			<Wrapper>
+				<div className={styles.main}>
+					<Chats />
+					<OpenChat />
+				</div>
+			</Wrapper>
 		</DashboardLayoutPage>
 	)
 }

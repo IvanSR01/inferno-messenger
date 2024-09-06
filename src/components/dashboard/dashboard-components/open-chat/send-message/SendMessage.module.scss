@@ -9,7 +9,11 @@
 	.file,
 	.send {
 		font-size: 30px;
+		transition: 0.5s color;
 		cursor: pointer;
+	}
+	.file:hover, .send:hover {
+		color: #007bff;
 	}
 	.input {
 		width: 100%;

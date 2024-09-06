@@ -1,11 +1,12 @@
+import { Chat } from '@/shared/intreface/chat.intreface'
 import { createSlice } from '@reduxjs/toolkit'
 
 type ChatSelectState = {
-	chatId: number | null
+	chat: Chat | null
 }
 
 const initialState: ChatSelectState = {
-	chatId: null
+	chat: null
 }
 
 
@@ -14,7 +15,7 @@ const chatSelectSlice = createSlice({
 	initialState,
 	reducers: {
 		setChatId: (state, action) => {
-			state.chatId = action.payload
+			state.chat = action.payload
 		},
 	},
 })

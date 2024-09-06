@@ -5,12 +5,12 @@ import Chat from './Chat'
 import styles from './OpenChat.module.scss'
 import clsx from 'clsx'
 const OpenChat: FC = () => {
-	const { chatId } = useAppSelector((state) => state.chat)
+	const { chat } = useAppSelector((state) => state.chat)
 	return (
 		<div className={clsx(styles.wrapper, {
-			[styles.hidden]: !chatId
+			[styles.hidden]: !chat?.id
 		})}>
-			{chatId ? (
+			{chat?.id ? (
 				<Chat/>
 			) : (
 				<>No chat selected</>

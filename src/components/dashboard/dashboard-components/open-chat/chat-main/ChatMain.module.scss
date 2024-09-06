@@ -5,15 +5,16 @@
 	max-height: 77dvh;
 	.messages {
 		max-height: 40%;
-		height: 70dvh;
+		height: 69dvh;
 		overflow-y: scroll;
 		display: flex;
-		justify-content: flex-end;
 		flex-direction: column;
+		// justify-content: flex-end;
 		gap: 5px;
 	}
 	.noMessages {
-		height: 70dvh;
+	max-height: 40%;
+		height: 69dvh;
 		width: 100%;
 		display: flex;
 		align-items: center;

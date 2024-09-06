@@ -1,4 +1,4 @@
-import { useState, FC, useEffect } from 'react'
+import { useState, FC, useEffect, useRef } from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 import { FaCircleStop } from 'react-icons/fa6'
 import { FiPaperclip } from 'react-icons/fi'
@@ -9,6 +9,8 @@ import { useMessageController } from './useMessageController'
 import { useSendMessage } from '@/hooks/useMessages'
 import { Icons } from './icons'
 import { toast } from 'react-toastify'
+import useFileModal from './file-modal/useFileModal'
+import FileModal from './file-modal/FileModal'
 
 interface SendMessageProps {
 	chatId: number
@@ -32,30 +34,35 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 	const [isRecording, setIsRecording] = useState(false)
 
 	const sendMessage = useSendMessage()
-	const handleSend = () => {
-		if (!messageContent) return toast.error('Напиши хоть чета дебил')
+
+	const handleSend = (messageContent: string, mediaUrl?: string) => {
+		if (!messageContent) {
+			return toast.error('Please write something or send a media')
+		}
 		sendMessage({
-			content: messageContent,
-			chatId,
+			content: messageContent || '',
 			userId,
+			media: mediaUrl || '',
+			chatId,
 		})
 		setMessageContent('')
 		setMediaUrl('')
 	}
+
 	useEffect(() => {
 		const handler = (e: KeyboardEvent) => {
 			if (e.code === 'Enter') {
-				handleSend()
+				handleSend(messageContent, mediaUrl as string)
 			}
 		}
-
 		document.addEventListener('keydown', handler)
 
 		return () => {
 			document.removeEventListener('keydown', handler)
 		}
-	}, []) 
-
+	}, [messageContent, mediaUrl])
+	const inputRef = useRef<HTMLInputElement>(null)
+	const { uploadsFiles, content, clearContent } = useFileModal()
 	return (
 		<ReactMediaRecorder
 			audio={messageType === 'audio'}
@@ -70,7 +77,16 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 						{mediaUrl ? (
 							<FaTrashAlt onClick={() => setMediaUrl(null)} />
 						) : (
-							<FiPaperclip />
+							<>
+								<FiPaperclip onClick={() => inputRef.current?.click()} />
+								<input
+									ref={inputRef}
+									hidden
+									type="file"
+									onChange={(e) => uploadsFiles(e)}
+									accept="image/png, image/gif, image/jpeg video/mp4, audio/*"
+								/>
+							</>
 						)}
 					</div>
 					{mediaUrl ? (
@@ -118,14 +134,29 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 							{isRecording ? (
 								<FaCircleStop />
 							) : (
-								<div onClick={messageType === 'text' ? handleSend : () => {}}>
+								<div
+									onClick={
+										messageType === 'text'
+											? () => handleSend(messageContent, mediaUrl as string)
+											: () => {}
+									}
+								>
 									{Icons[messageType]}
 								</div>
 							)}
 						</div>
+						<FileModal
+							userId={userId}
+							chatId={chatId}
+							clearContent={clearContent}
+							content={content}
+						/>
 					</div>
 					{mediaUrl && (
-						<div onClick={handleSend} className={styles.send}>
+						<div
+							onClick={() => handleSend(messageContent, mediaUrl)}
+							className={styles.send}
+						>
 							{Icons['text']}
 						</div>
 					)}

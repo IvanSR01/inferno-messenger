@@ -13,20 +13,24 @@ import clsx from 'clsx'
 const Chats: FC = () => {
 	const me = useProfile()
 	const chats = useChats(me?.id as number)
-	const { chatId } = useAppSelector((state) => state.chat)
+	const { chat: selectChat } = useAppSelector((state) => state.chat)
 	const dispatch = useAppDispatch()
 	return (
-		<div className={clsx(styles.wrapper, {
-		[styles.hidden]: !!chatId
-		})}>
+		<div
+			className={clsx(styles.wrapper, {
+				[styles.hidden]: !!selectChat?.id,
+			})}
+		>
 			{chats.length > 0 ? (
 				chats.map((chat) => (
 					<MiniChat
 						key={chat.id}
 						chat={chat}
 						me={me as User}
-						isSelectedChat={chat.id === chatId}
-						onClick={() => dispatch(setChatId(chat.id == chatId ? null : chat.id))}
+						isSelectedChat={chat.id === selectChat?.id}
+						onClick={() =>
+							dispatch(setChatId(chat.id == selectChat?.id ? null : chat))
+						}
 					/>
 				))
 			) : (

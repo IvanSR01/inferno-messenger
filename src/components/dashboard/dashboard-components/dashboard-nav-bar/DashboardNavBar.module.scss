@@ -3,7 +3,7 @@
 	align-items: center;
 	flex-direction: row;
 	gap: 10px;
-	font-size: 20px;
+	font-size: clamp(14px, 1vw, 20px);
 	a {
 		border-radius: 10px;
 		padding: 5px 10px;

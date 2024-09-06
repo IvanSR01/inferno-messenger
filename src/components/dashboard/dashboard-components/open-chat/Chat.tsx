@@ -10,13 +10,13 @@ import { getInterlocutor } from '@/shared/utils/getInterlocutor'
 import { User } from '@/shared/intreface/user.interface'
 import ChatMain from './chat-main/ChatMain'
 export default function Chat() {
-	const { chatId } = useAppSelector((state) => state.chat)
+	const { chat } = useAppSelector((state) => state.chat)
 	const me = useProfile()
 	const { data, isLoading } = useQuery({
-		queryKey: ['chat', chatId],
-		queryFn: () => chatService.getChat(chatId as number),
+		queryKey: ['chat', chat?.id],
+		queryFn: () => chatService.getChat(chat?.id as number),
 	})
-	if (isLoading && chatId)
+	if (isLoading && chat?.id)
 		return (
 			<div className={styles.wrapper}>
 				<Loader />

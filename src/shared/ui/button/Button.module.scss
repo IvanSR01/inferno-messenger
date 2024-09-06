@@ -1,0 +1,19 @@
+.button {
+	font-weight: bold;
+	font-size: 18px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--mainColor);
+	border-radius: 10px;
+	text-transform: uppercase;
+	border: none;
+	padding: 15px 0;
+	color: var(--mainInverseColor);
+}
+.altStyle {
+	background-color: var(--mainInverseColor) !important;
+	color: var(--mainColor) !important;	
+	border: 2px solid var(--mainColor) !important;
+}
