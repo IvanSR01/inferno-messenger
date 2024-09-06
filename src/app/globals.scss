@@ -37,3 +37,13 @@ body[data-theme='dark'] {
 	--mainBorder: #2f2b2b;
 }
 
+
+
+* {
+  scrollbar-width: none;  
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none; 
+  }
+}

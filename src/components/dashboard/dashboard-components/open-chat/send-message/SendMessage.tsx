@@ -62,7 +62,7 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 		}
 	}, [messageContent, mediaUrl])
 	const inputRef = useRef<HTMLInputElement>(null)
-	const { uploadsFiles, content, clearContent } = useFileModal()
+	const { changeFiles, content, clearContent } = useFileModal()
 	return (
 		<ReactMediaRecorder
 			audio={messageType === 'audio'}
@@ -83,7 +83,7 @@ const SendMessage: FC<SendMessageProps> = ({ chatId, userId }) => {
 									ref={inputRef}
 									hidden
 									type="file"
-									onChange={(e) => uploadsFiles(e)}
+									onChange={(e) => changeFiles(e)}
 									accept="image/png, image/gif, image/jpeg video/mp4, audio/*"
 								/>
 							</>

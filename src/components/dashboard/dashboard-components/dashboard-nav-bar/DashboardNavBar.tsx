@@ -11,8 +11,8 @@ const navData = [
 		link: '/chats',
 	},
 	{
-		name: 'Settings',
-		link: '/settings',
+		name: 'Controllers',
+		link: '/controllers',
 	},
 	{
 		name: 'Contacts',

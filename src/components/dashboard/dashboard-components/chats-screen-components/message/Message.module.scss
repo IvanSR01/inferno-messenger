@@ -38,6 +38,19 @@
 				font-size: 16px;
 			}
 		}
+		code {
+			display: block;
+			background-color: #1e1e1e; 
+			color: #d4d4d4; 
+			padding: 10px; 
+			border-radius: 5px; 
+			font-family: 'Courier New', Courier, monospace; 
+			font-size: 14px; 
+			line-height: 1.5;
+			white-space: pre-wrap;
+			word-wrap: break-word;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+		}
 	}
 }
 
@@ -47,7 +60,11 @@
 	.message {
 		background-color: #181818;
 		color: #fff;
-
+		code {
+			background-color: #d4d4d4;
+			color: #1e1e1e;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
 	}
 	.hiz-last {
 		border-bottom-right-radius: 0px;
