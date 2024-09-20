@@ -9,7 +9,7 @@ const pwa = withPWA({
 })
 const nextConfig = {
 	env: {
-		NEST_PUBLIC_API_URL: 'http://localhost:4200/api',
+		NEST_PUBLIC_API_URL: 'https://messenger-elhy.onrender.com/api',
 	},
 }
 
