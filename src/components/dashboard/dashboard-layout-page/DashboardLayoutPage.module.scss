@@ -1,12 +1,4 @@
 .layout {
-	// .main {
-	// 	display: flex;
-	// 	flex-direction: row;
-
-	// 	@media (max-width: 800px) {
-	// 		flex-direction: column;
-	// 	}
-	// }
-	background-color: #fff !important;
-	height: 100%;
+	background-color: var(--mainBackground) !important;
+	height: 100vh;
 }

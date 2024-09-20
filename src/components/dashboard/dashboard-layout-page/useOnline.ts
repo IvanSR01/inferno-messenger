@@ -4,31 +4,32 @@ import { useEffect } from 'react'
 
 export default function useOnline() {
 	const profile = useProfile()
-
+	console.log(profile)
 	useEffect(() => {
-		// Если профиль ещё не загружен, ничего не делаем
-		if (!profile?.id) return
+		if (!profile?.id) {
+			console.log('Profile not loaded yet.')
+			return
+		}
 
 		const handleChange = (isOnline: boolean) => {
+
 			messageService.emit('toggle-status', {
-				userId: profile.id, // Теперь мы уверены, что id существует
-				isOnline,
+				userId: profile.id,
+				status: isOnline ? 'online' : 'offline',
 			})
 		}
 
-		// Отправляем статус онлайн при монтировании компонента
-		handleChange(true)
+		handleChange(false)
 
-		// Обработчик для закрытия окна
-		const handleBeforeUnload = () => handleChange(false)
+		const handleBeforeUnload = () => handleChange(true)
 
 		// Добавляем обработчик события
-		window.addEventListener('unload', handleBeforeUnload)
+		window.addEventListener('beforeunload', handleBeforeUnload)
 
-		// Очищаем обработчик при размонтировании компонента
+		// Возвращаем функцию очистки, которая удаляет обработчик при размонтировании компонента
 		return () => {
-			window.removeEventListener('unload', handleBeforeUnload)
-			handleChange(false) // Выход
+			window.removeEventListener('beforeunload', handleBeforeUnload)
+			handleChange(false) // Обработка выхода
 		}
 	}, [profile?.id]) // Отслеживаем id профиля
 }

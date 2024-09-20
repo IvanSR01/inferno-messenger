@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { FormProps } from './Form-type'
 import styles from './Form.module.scss'
+import Button from '@/shared/ui/button/Button'
 
 const Form: FC<FormProps> = ({ inputData, onSubmit, isPending, name }) => {
 	type ExtractNames<T> = T extends { name: infer U } ? U : never
@@ -59,9 +60,9 @@ const Form: FC<FormProps> = ({ inputData, onSubmit, isPending, name }) => {
 					/>
 				</div>
 			))}
-			<button className={styles.formButton} type='submit' disabled={isPending}>
+			<Button type="submit" disabled={isPending}>
 				{name}
-			</button>
+			</Button>
 		</form>
 	)
 }

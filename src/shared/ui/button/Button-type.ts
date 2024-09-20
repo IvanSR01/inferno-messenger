@@ -1,4 +1,5 @@
-import { CSSProperties, ReactNode } from "react"
+import { CSSProperties, ReactNode } from 'react'
+import { colors } from './Button'
 
 export type ButtonProps = {
 	className?: string
@@ -7,4 +8,6 @@ export type ButtonProps = {
 	onClick?: () => void
 	children?: ReactNode
 	altStyle?: boolean
+	color?: keyof typeof colors
+	disabled?: boolean
 }

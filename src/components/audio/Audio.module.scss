@@ -1,0 +1,57 @@
+.telegramAudio {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #f0f0f0;
+	max-width: 300px;
+	margin: 0 auto;
+	height: 70px;
+}
+
+.playPauseButton {
+	border: none;
+	cursor: pointer;
+	font-size: 30px;
+	color: #fff;
+	background-color: #4a76a8;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 200px;
+	margin-right: 10px;
+}
+
+.progressBar {
+	flex: 1;
+	height: 5px;
+	background-color: #ddd;
+	border-radius: 5px;
+	margin-right: 10px;
+	display: flex;
+	align-items: center;
+}
+.waveform {
+  display: flex;
+  align-items: flex-end;
+
+  .waveBar {
+    width: 5px;
+    background-color: #4a76a8;
+    transition: height 0.3s ease, opacity 0.3s ease; 
+  }
+}
+
+
+.progress {
+	height: 100%;
+	background-color: #4a76a8;
+	border-radius: 5px;
+}
+
+.time {
+	font-size: 12px;
+	color: #333;
+}

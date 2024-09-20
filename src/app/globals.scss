@@ -25,25 +25,53 @@ body {
 	--mainColor: #000;
 	--mainInverseColor: #fff;
 	--mainBackground: #fff;
+	--mainBackgroundSub: #fff;
 	--mainShadow: #e6e6e6;
 	--mainBorder: #dfdfdf;
+	--subColor: #505050;
+	--userAvatar: #686868;
 }
 
 body[data-theme='dark'] {
-	--mainColor: #fff;
-	--mainInverseColor: #000;
-	--mainBackground: #131317;
-	--mainShadow: #0e0e0e;
-	--mainBorder: #2f2b2b;
+	--mainColor: #fff; // Основной цвет текста
+	--mainInverseColor: #000; // Обратный цвет для элементов
+	--mainBackground: #181818; // Основной фон
+	--mainBackgroundSub: #202020; // Второстепенный фон
+	--mainShadow: #0a0a0a; // Тени
+	--mainBorder: #303030; // Границы
+	--subColor: #a0a0a0; // Дополнительный текст
+	--userAvatar: #8a8a8a; // Цвет для аватаров пользователей
 }
 
+* {
+	--status: #007bff;
+	--yellowColor: #ffa600;
 
+	--greenColor: #00cc00;
+
+	--blueColor: #00b3ff;
+
+	--redColor: #cc0000;
+}
 
 * {
-  scrollbar-width: none;  
-  -ms-overflow-style: none;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 
-  &::-webkit-scrollbar {
-    display: none; 
-  }
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.text-message {
+	margin-top: 10px;
+}
+
+.fullscreen {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--mainBackground);
 }

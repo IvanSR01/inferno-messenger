@@ -1,0 +1,52 @@
+.chat {
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 10px 40px;
+	background-color: transparent;
+	transition: background-color 0.5s ease-in-out;
+	@media (max-width: 1200px) {
+		padding: 10px 0px;
+	}
+	.info {
+		width: 80%;
+		.chat-name {
+			color: var(--mainColor);
+			font-weight: bold;
+			font-size: clamp(16px, 4.5vw, 20px);
+		}
+		.last-message {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			p {
+				font-size: clamp(10px, 3vw, 14px);
+				color: var(--subColor);
+			}
+			.detalls {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.isRead {
+				color: #007bff;
+			}
+		}
+	}
+}
+
+.wrapper {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.selected {
+	> .chat {
+		background-color: #e5e5e5;
+	}
+}

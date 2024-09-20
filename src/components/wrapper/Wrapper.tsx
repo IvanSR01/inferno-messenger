@@ -7,6 +7,7 @@ const Wrapper: FC<Props> = ({ children }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.content}>{children}</div>
+			<div className=''></div>
 		</div>
 	)
 }

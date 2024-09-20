@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useState } from 'react';
 import messageService from '@/services/message-service/message.service';
 import { timeAgo } from '@/shared/utils/timeAgo';
 
-export const useGetUserStatus = (userId: number): UserStatus | null => {
+export const useGetUserStatus = (userId: number | null): UserStatus | null => {
+	if(!userId) return null
   const [userStatus, setUserStatus] = useState<UserStatus | null>(null);
 
   useEffect(() => {

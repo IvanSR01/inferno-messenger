@@ -1,0 +1,40 @@
+.sendMessage {
+	position: relative;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding: 10px 3%;
+	background-color: #fff;
+	
+	.file,
+	.send {
+		font-size: 30px;
+		transition: 0.5s color;
+		cursor: pointer;
+	}
+	.file:hover, .send:hover {
+		color: #007bff;
+	}
+	.input {
+		width: 100%;
+		height: 40px; /* Явная высота для инпута */
+		border: none;
+		outline: none;
+		border-radius: 20px;
+		padding: 0px 10px; /* Добавляем отступы */
+		font-size: 16px;
+		background-color: #ececec;
+	}
+	.video {
+		width: 100%;
+		height: 250px;
+		display: flex;
+		justify-content: center;
+		video {
+			width: 300px;
+			height: 250px;
+			object-fit: contain;
+		}
+	}
+}

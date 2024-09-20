@@ -1,6 +1,7 @@
 .heading {
   font-size: 32px;
   font-weight: 600;
+	color: var(--mainColor);
 }
 
 .or {
@@ -8,16 +9,17 @@
   margin-top: 20px;
   font-weight: 500;
   font-size: 18px;
+	color: var(--mainColor);
 }
 
 .footer {
   margin-top: 25px;
   padding-top: 10px;
-  border-top: 2px solid #dedede;
+  border-top: 2px solid var(--mainBorder);
   text-align: center;
-  color: #505050;
+  color: var(--subColor);
   a {
-    color: #000;
+    color: var(--mainColor);
     font-weight: bold;
   }
 }

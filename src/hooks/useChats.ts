@@ -29,7 +29,6 @@ export function useChats(id: number): Chat[] {
         }
     }, [id])
 
-		console.log(chatsFromSocket)
     // Используем useMemo для оптимизации рендеринга
     return useMemo(() => chatsFromSocket, [chatsFromSocket])
 }

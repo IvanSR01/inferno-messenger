@@ -1,24 +1,28 @@
 .wrapper {
-	height: 100%;
+	height: 91%;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	max-height: 77dvh;
+	position: relative;
+	@media (max-width: 1200px) {
+		justify-content: space-between;
+	}
 	.messages {
-		max-height: 82%;
-		height: 82%;
+		height: 92%;
 		overflow-y: scroll;
 		display: flex;
 		flex-direction: column;
 		// justify-content: flex-end;
+		padding: 20px 0px;
 		gap: 5px;
 	}
 	.noMessages {
-		max-height: 40%;
-		height: 70%;
+		height: 92%;
 		width: 100%;
 		display: flex;
 		align-items: center;
+		text-transform: uppercase;
+		font-weight: bold;
 		justify-content: center;
 	}
 }

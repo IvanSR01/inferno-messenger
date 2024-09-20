@@ -1,0 +1,51 @@
+.select {
+	width: 100%;
+	padding: 14px;
+	color: var(--mainColor);
+	border: 2px solid #dfdfdf;
+	cursor: pointer;
+	position: relative;
+	.placeholder {
+		display: flex;
+		align-items: center;
+		font-size: 18px;
+		color: #676767;
+	}
+	.selectedHeading {
+		display: flex;
+		gap: 20px;
+		max-width: 100%;
+		overflow-x: scroll;
+	}
+	.menu {
+		top: 76px;
+		left: -1px;
+		position: absolute;
+		width: 100.7%;
+		color: var(--mainColor);
+		border: 2px solid #dfdfdf;
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		max-height: 300px;
+		overflow-y: scroll;
+		.user {
+			padding: 10px 20px;
+			display: flex;
+			align-items: center;
+			gap: 20px;
+			cursor: pointer;
+			p {
+				font-size: 18px;
+				color: #676767;
+				font-weight: bold;
+			}
+		}
+		.user:hover {
+			background-color: #f1f1f1;
+		}
+		.selected {
+			background-color: #f1f1f1;
+		}
+	}
+}

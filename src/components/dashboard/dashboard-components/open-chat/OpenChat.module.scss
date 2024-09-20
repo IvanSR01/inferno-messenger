@@ -11,7 +11,11 @@
 	@media (max-width: 1200px) {
 		width: 100%;
 	}
-
+	.no {
+		text-transform: uppercase;
+		font-weight: bold;
+		color: var(--mainColor);
+	}
 }
 .hidden {
 	@media (max-width: 1200px) {

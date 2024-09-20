@@ -1,0 +1,101 @@
+.wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	gap: 20px;
+	align-items: center;
+	position: relative;
+	padding-left: 5%;
+
+	.post {
+		width: auto;
+		max-width: 70%;
+		background-color: #f1f1f1;
+		padding: 10px 25px 25px 10px;
+		border-radius: 15px;
+		font-size: 16px;
+		position: relative;
+		min-width: 150px;
+		@media (max-width: 800px) {
+			max-width: 80%;
+		}
+
+		.post-content {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+
+			.media {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 10px;
+
+				span {
+					img {
+						max-width: 100%;
+						max-height: 250px;
+						border-radius: 10px;
+						object-fit: cover;
+						box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+						flex: 1 1 calc(33% - 10px); /* Изображения занимают до 33% ширины */
+					}
+
+					/* Стили для видео */
+					video {
+						max-width: 100%;
+						max-height: 250px;
+						border-radius: 10px;
+						object-fit: cover;
+						flex: 1 1 calc(100% - 10px); /* Видео занимает 100% ширины */
+					}
+				}
+			}
+
+			.text-message {
+				margin-top: 10px;
+				font-size: 15px;
+				line-height: 1.6;
+				color: #333;
+				word-wrap: break-word;
+				white-space: pre-wrap;
+			}
+		}
+
+		.detalis {
+			right: 5px;
+			bottom: 3px;
+			position: absolute;
+			font-size: 14px;
+			display: flex;
+			align-items: flex-end;
+			gap: 2px;
+
+			.view {
+				color: #0026ff;
+				display: flex;
+				align-items: center;
+
+				svg {
+					font-size: 20px;
+				}
+			}
+
+			.date {
+				color: #888;
+			}
+		}
+		code {
+			display: block;
+			background-color: #1e1e1e;
+			color: #d4d4d4;
+			padding: 10px;
+			border-radius: 5px;
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 14px;
+			line-height: 1.5;
+			white-space: pre-wrap;
+			word-wrap: break-word;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+	}
+}
