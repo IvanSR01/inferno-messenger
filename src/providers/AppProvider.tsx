@@ -6,6 +6,7 @@ import QueryProvider from './QueryProvider'
 import { Provider } from 'react-redux'
 import store from '@/store/store'
 import Loader from '@/components/loader/Loader'
+import ThemeProvider from './ThemeProvider'
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	useEffect(() => {
@@ -18,13 +19,15 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<Provider store={store}>
 			<QueryProvider>
-				{isLoading ? (
-					<div className="fullscreen">
-						<Loader />
-					</div>
-				) : (
-					children
-				)}
+				<ThemeProvider>
+					{isLoading ? (
+						<div className="fullscreen">
+							<Loader />
+						</div>
+					) : (
+						children
+					)}
+				</ThemeProvider>
 			</QueryProvider>
 			<ToastContainer
 				position="top-right"

@@ -1,3 +1,4 @@
+'use client'
 import Modal from '@/components/modal/Modal'
 import UserAvatar from '@/components/user-avatar/UserAvatar'
 import { useProfile } from '@/hooks/useProfile'
@@ -6,7 +7,7 @@ import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { FiMenu, FiSettings } from 'react-icons/fi'
 import { IoCloseOutline, IoPersonAddOutline } from 'react-icons/io5'
 import styles from './DashboardNavBar.module.scss'
@@ -14,10 +15,12 @@ import SettingController from './controllers-components/setting-controller/Setti
 import CreateChatController from './controllers-components/create-chat-controller/ChatController'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import CreateChannelController from './controllers-components/create-channel-controller/CreateChannelController'
+import Input from '@/shared/ui/input/Input'
+import { ThemeContext } from '@/providers/ThemeProvider'
 
 const navData = [
 	{
-		name: 'Chats',
+		name: '+',
 		link: '/chats',
 	},
 	{
@@ -31,26 +34,26 @@ const modals: TypeModal[] = [
 		title: 'Settings',
 		name: 'setting',
 		Icon: () => <FiSettings />,
-		Component: ({close}) => <SettingController  close={close}/>,
+		Component: ({ close }) => <SettingController close={close} />,
 	},
 	{
 		title: 'Add Chat',
 		name: 'chat',
 		Icon: () => <IoPersonAddOutline />,
-		Component: ({close}) => <CreateChatController close={close} />,
+		Component: ({ close }) => <CreateChatController close={close} />,
 	},
 	{
 		title: 'Add Channel',
 		name: 'channel',
 		Icon: () => <AiOutlineUsergroupAdd />,
-		Component: ({close}) => <CreateChannelController close={close} />,
+		Component: ({ close }) => <CreateChannelController close={close} />,
 	},
 ]
 
 type TypeModal = {
 	title: string
 	name: keyof TypeStateModals
-	Component: FC<{close: any}>
+	Component: FC<{ close: any }>
 	Icon: FC
 }
 
@@ -82,7 +85,19 @@ const DashboardNavBar: FC = () => {
 		document.addEventListener('click', handlerClick)
 		return () => document.removeEventListener('click', handlerClick)
 	})
-
+	const { theme, setTheme } = useContext(ThemeContext)
+	const [checked, setChecked] = useState(theme === 'dark')
+	const handlerChange = (value: boolean) => {
+		if (value) {
+			setChecked(true)
+			setTheme && setTheme('dark')
+			// return window.localStorage.setItem('theme', 'dark')
+		} else {
+			setChecked(false)
+			setTheme && setTheme('light')
+			// return window.localStorage.setItem('theme', 'light')
+		}
+	}
 	return (
 		<div className={styles.wrapper} ref={ref}>
 			{modals.map(({ name, Component }, i) => (
@@ -93,10 +108,12 @@ const DashboardNavBar: FC = () => {
 						console.log(d)
 						setStateModals({ ...stateModals, [name]: false })
 					}}
-					key={i}
+					key={name}
 				>
 					<div className={styles.form}>
-						<Component close={() => setStateModals({ ...stateModals, [name]: false })} />
+						<Component
+							close={() => setStateModals({ ...stateModals, [name]: false })}
+						/>
 					</div>
 				</Modal>
 			))}
@@ -130,7 +147,7 @@ const DashboardNavBar: FC = () => {
 									className={clsx(styles.item, {
 										[styles.select]: pathname.includes(link),
 									})}
-									key={i}
+									key={`${name}${i}`}
 									href={`/dashboard${link}`}
 								>
 									{name}
@@ -138,7 +155,7 @@ const DashboardNavBar: FC = () => {
 							))}
 							{modals.map(({ title, name, Icon }, i) => (
 								<div
-									key={i}
+									key={`${name}${title}${i}`}
 									className={clsx(styles.item)}
 									onClick={() => {
 										setStateModals({
@@ -151,6 +168,12 @@ const DashboardNavBar: FC = () => {
 									<Icon />
 								</div>
 							))}
+							<Input
+								value={checked as any}
+								onChange={(e: any) => handlerChange(e.target.checked)}
+								placeholder="THEME"
+								type="checkbox"
+							/>
 						</div>
 					</motion.div>
 				)}

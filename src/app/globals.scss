@@ -22,17 +22,20 @@ body {
 }
 
 body {
+	--status: #007bff;
 	--mainColor: #000;
 	--mainInverseColor: #fff;
 	--mainBackground: #fff;
-	--mainBackgroundSub: #fff;
+	--mainBackgroundSub: #ededed;
 	--mainShadow: #e6e6e6;
 	--mainBorder: #dfdfdf;
 	--subColor: #505050;
 	--userAvatar: #686868;
+	--select: #e5e5e5;
 }
 
-body[data-theme='dardsk'] {
+body[data-theme='dark'] {
+	--status: #3295ff;
 	--mainColor: #fff; // Основной цвет текста
 	--mainInverseColor: #000; // Обратный цвет для элементов
 	--mainBackground: #181818; // Основной фон
@@ -41,10 +44,10 @@ body[data-theme='dardsk'] {
 	--mainBorder: #303030; // Границы
 	--subColor: #a0a0a0; // Дополнительный текст
 	--userAvatar: #8a8a8a; // Цвет для аватаров пользователей
+	--select: #303030;
 }
 
 * {
-	--status: #007bff;
 	--yellowColor: #ffa600;
 
 	--greenColor: #00cc00;

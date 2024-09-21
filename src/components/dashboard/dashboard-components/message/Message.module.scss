@@ -10,7 +10,8 @@
 		width: 45px;
 	}
 	.message {
-		background-color: #f1f1f1;
+		background-color: var(--mainBackgroundSub);
+		color: var(--mainColor);
 		padding: 10px 45px 15px 10px;
 		border-radius: 15px;
 		font-size: 16px;
@@ -38,7 +39,7 @@
 			font-weight: bold;
 			font-size: 14px;
 			margin: 0;
-			color: #000;
+			color: var(--mainColor);
 		}
 
 		.detalis {
@@ -72,8 +73,8 @@
 	justify-content: flex-end;
 	padding-right: 7%;
 	.message {
-		background-color: #181818;
-		color: #fff;
+		background-color: var(--mainColor);
+		color: var(--mainBackground);
 		code {
 			background-color: #d4d4d4;
 			color: #1e1e1e;

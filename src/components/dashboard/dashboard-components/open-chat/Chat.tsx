@@ -14,14 +14,13 @@ import { useTyping } from './useTyping'
 export default function Chat() {
 	const { chat } = useAppSelector((state) => state.chat)
 	const me = useProfile()
-	const data = useChat(chat?.id as number)
-	// if (isLoading && chat?.id)
-	// 	return (
-	// 		<div className={styles.wrapper}>
-	// 			<Loader />
-	// 		</div>
-	// 	)
-	console.log(data, chat)
+	const { data: chatFromQuery } = useQuery({
+		queryKey: ['chat', chat?.id],
+		queryFn: () => chatService.getChat(chat?.id as number),
+		enabled: !!chat?.id,
+	})
+	const data = useChat(chat?.id as number, chatFromQuery as TChat)
+
 	return (
 		<div className={styles.chat}>
 			<ChatHeader

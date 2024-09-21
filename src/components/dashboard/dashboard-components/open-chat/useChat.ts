@@ -2,8 +2,8 @@ import messageService from '@/services/message-service/message.service'
 import { Chat } from '@/shared/intreface/chat.intreface'
 import { useMemo, useState, useEffect } from 'react'
 
-export function useChat(id: number): Chat {
-	const [chatFromSocket, setChatFromSocket] = useState<Chat>({} as Chat)
+export function useChat(id: number, initialState: Chat): Chat {
+	const [chatFromSocket, setChatFromSocket] = useState<Chat>(initialState)
 
 	useEffect(() => {
 		if (id) {

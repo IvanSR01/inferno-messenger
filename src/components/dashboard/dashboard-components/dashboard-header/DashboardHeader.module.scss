@@ -1,12 +1,8 @@
 .header {
-	height: 100px;
+	height: 70px;
 	width: 100vw;
 	display: flex;
 	align-items: center;
-	// border-bottom: 2px solid #dfdfdf;
-	// border-bottom-left-radius: 20px;
-	// border-bottom-right-radius: 20px;
-	// box-shadow: 0 0px 20px #eeeeee;
 	@media (max-width: 1200px) {
 		height: 70px;
 		padding: 0px 10px;

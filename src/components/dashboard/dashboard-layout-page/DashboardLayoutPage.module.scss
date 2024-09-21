@@ -1,4 +1,14 @@
 .layout {
 	background-color: var(--mainBackground) !important;
-	height: 100vh;
+	height: 100dvh;
+	// display: flex;
+	// flex-direction: column;
+	gap: 20px;
+	padding: 20px 0px 40px;
+	@media (max-width: 1200px) {
+		padding: 20px 0px 2px;
+	}
+	.main {
+		height: 95%;
+	}
 }

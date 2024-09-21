@@ -36,6 +36,14 @@
 		color: red;
 	}
 }
+.switch {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	.placholder {
+		color: var(--subColor);
+	}
+}
 
 .input-switch {
 	position: relative;
@@ -79,7 +87,7 @@
 
 	/* Когда включено (checked) */
 	input:checked + .slider {
-		background-color: var(--mainColor);
+		background-color: #000;
 	}
 
 	/* Сдвигаем индикатор вправо */

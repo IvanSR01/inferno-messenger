@@ -24,7 +24,7 @@ const RegisterScreen: FC<Props> = ({ inputData }) => {
 		api: 'register',
 		onError: (err) => toast.error(useError(err)),
 		onSuccess: (data) => {
-			push('/dashboard/chats')
+			push('/dashboard/chats')									
 		},
 	})
 	return (

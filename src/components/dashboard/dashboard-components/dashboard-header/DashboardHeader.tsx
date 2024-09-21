@@ -1,14 +1,14 @@
 'use client'
+import Wrapper from '@/components/wrapper/Wrapper'
+import { useAppDispatch, useAppSelector } from '@/hooks/useAction'
+import Input from '@/shared/ui/input/Input'
+import { setSearch } from '@/store/slice/search.slice'
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import styles from './DashboardHeader.module.scss'
-import Wrapper from '@/components/wrapper/Wrapper'
-import Input from '@/shared/ui/input/Input'
-import DashboardNavBar from '../dashboard-nav-bar/DashboardNavBar'
-import { FaSearch } from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
-import { useAppDispatch, useAppSelector } from '@/hooks/useAction'
-import { setSearch } from '@/store/slice/search.slice'
-
+const DashboardNavBar = dynamic(() => import('../dashboard-nav-bar/DashboardNavBar'), {
+  ssr: false,
+});
 const DashboardHeader: FC = () => {
 	const dispatch = useAppDispatch()
 	const { search } = useAppSelector((state) => state.search)

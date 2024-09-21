@@ -17,7 +17,7 @@
 		gap: 20px;
 	}
 	.open {
-		color: var(--mainBorder);
+		color: var(--subColor);
 		font-size: 40px;
 		cursor: pointer;
 	}
@@ -26,6 +26,7 @@
 		top: 50px;
 		left: -215px;
 		position: absolute;
+		z-index: 100000;
 		background-color: var(--mainBackground);
 		padding: 20px;
 		border-radius: 20px;

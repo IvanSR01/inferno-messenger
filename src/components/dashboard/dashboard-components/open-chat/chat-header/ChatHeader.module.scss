@@ -8,6 +8,7 @@
 	.back {
 		font-size: 20px;
 		cursor: pointer;
+		color: var(--mainColor);
 	}
 	.center {
 		display: flex;
@@ -16,18 +17,18 @@
 		.detalls {
 			text-align: center;
 			.name {
-				color: #000;
+				color: var(--mainColor);
 				font-weight: bold;
 				font-size: clamp(16px, 4.5vw, 20px);
 			}
 			.last-seen {
 				font-size: clamp(10px, 3vw, 14px);
-				color: #505050;
+				color: var(--subColor);
 			}
 			.status {
 				font-size: clamp(10px, 3vw, 14px);
 				font-weight: bold;
-				color: #007bff;
+				color: var(--status);
 			}
 		}
 	}
@@ -35,6 +36,7 @@
 		svg {
 			font-size: 20px;
 			cursor: pointer;
+			color: var(--mainColor);
 		}
 	}
 }
