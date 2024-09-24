@@ -1,9 +1,9 @@
 {
-  "name": "ZED-MESSENGER",
-  "short_name": "Z",
+  "name": "Inferno messenger",
+  "short_name": "IM",
   "theme_color": "#000",
   "background_color": "#fff",
-  "display": "browser",
+  "display": "fullScreen",
   "orientation": "",
   "scope": "/",
   "start_url": "/dashboard/chats",
