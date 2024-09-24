@@ -1,25 +1,33 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import styles from './ToggleChats.module.scss'
 import clsx from 'clsx'
 
 interface Props {
 	selectData: string[]
-	selectChatType: 'chats' | 'channel'
 	onClick: (value: string) => void
+	languageData: string[]
 }
 
-const ToggleChats: FC<Props> = ({ selectData, selectChatType, onClick }) => {
+const ToggleChats: FC<Props> = ({
+	selectData,
+	onClick,
+	languageData,
+}) => {
+	const [state, setState] = useState(0)
 	return (
 		<div className={styles.wrapper}>
-			{selectData.map((data) => (
+			{selectData.map((data, i) => (
 				<div
 					className={clsx(styles.item, {
-						[styles.active]: data === selectChatType,
+						[styles.active]: i === state,
 					})}
 					key={data}
-					onClick={() => onClick(data)}
+					onClick={() => {
+						setState(i)
+						onClick(data)
+					}}
 				>
-					{data}
+					{languageData[i]}
 				</div>
 			))}
 		</div>

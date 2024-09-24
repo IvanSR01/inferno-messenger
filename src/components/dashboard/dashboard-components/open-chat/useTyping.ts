@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import debounce from 'lodash.debounce';
-import messageService from '@/services/message-service/message.service';
+import socketService from '@/services/socket-service/socket.service';
 
 
 interface UseTypingProps {
@@ -12,11 +12,11 @@ export const useTyping = ({ chatId, userId }: UseTypingProps) => {
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const sendStartTyping = () => {
-    messageService.emit('start-typing', { chatId, userId });
+    socketService.emit('start-typing', { chatId, userId });
   };
 
   const sendStopTyping = () => {
-    messageService.emit('stop-typing', { chatId, userId });
+    socketService.emit('stop-typing', { chatId, userId });
   };
 
   const debouncedStartTyping = debounce(sendStartTyping, 500);

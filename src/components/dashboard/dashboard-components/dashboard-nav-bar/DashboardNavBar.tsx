@@ -2,7 +2,6 @@
 import Modal from '@/components/modal/Modal'
 import UserAvatar from '@/components/user-avatar/UserAvatar'
 import { useProfile } from '@/hooks/useProfile'
-import { variants } from '@/shared/motion/variants'
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
@@ -17,10 +16,23 @@ import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import CreateChannelController from './controllers-components/create-channel-controller/CreateChannelController'
 import Input from '@/shared/ui/input/Input'
 import { ThemeContext } from '@/providers/ThemeProvider'
+import { setLocalStorage } from '@/shared/local/local'
+
+const variants = {
+	init: {
+		x: 250,
+	},
+	animate: {
+		x: 0,
+	},
+	exit: {
+		x: 250,
+	},
+}
 
 const navData = [
 	{
-		name: '+',
+		name: 'Chats',
 		link: '/chats',
 	},
 	{
@@ -91,11 +103,11 @@ const DashboardNavBar: FC = () => {
 		if (value) {
 			setChecked(true)
 			setTheme && setTheme('dark')
-			// return window.localStorage.setItem('theme', 'dark')
+			return setLocalStorage('theme', 'dark')
 		} else {
 			setChecked(false)
 			setTheme && setTheme('light')
-			// return window.localStorage.setItem('theme', 'light')
+			return setLocalStorage('theme', 'light')
 		}
 	}
 	return (
@@ -105,14 +117,16 @@ const DashboardNavBar: FC = () => {
 					showModal={stateModals[name]}
 					isDisableClickOutside={true}
 					setShowModal={(d) => {
-						console.log(d)
 						setStateModals({ ...stateModals, [name]: false })
 					}}
 					key={name}
 				>
 					<div className={styles.form}>
 						<Component
-							close={() => setStateModals({ ...stateModals, [name]: false })}
+							close={() => {
+								setShow(true)
+								setStateModals({ ...stateModals, [name]: false })
+							}}
 						/>
 					</div>
 				</Modal>
@@ -121,7 +135,7 @@ const DashboardNavBar: FC = () => {
 				{!show ? <FiMenu /> : <IoCloseOutline />}
 			</div>
 			<AnimatePresence>
-				{show && (
+				<Modal showModal={show} setShowModal={setShow}>
 					<motion.div
 						variants={variants}
 						initial="init"
@@ -158,6 +172,7 @@ const DashboardNavBar: FC = () => {
 									key={`${name}${title}${i}`}
 									className={clsx(styles.item)}
 									onClick={() => {
+										setShow(false)
 										setStateModals({
 											...stateModals,
 											[name]: true,
@@ -168,15 +183,17 @@ const DashboardNavBar: FC = () => {
 									<Icon />
 								</div>
 							))}
-							<Input
-								value={checked as any}
-								onChange={(e: any) => handlerChange(e.target.checked)}
-								placeholder="THEME"
-								type="checkbox"
-							/>
+							<div className={styles.theme}>
+								<Input
+									value={checked as any}
+									onChange={(e: any) => handlerChange(e.target.checked)}
+									placeholder="THEME"
+									type="checkbox"
+								/>
+							</div>
 						</div>
 					</motion.div>
-				)}
+				</Modal>
 			</AnimatePresence>
 		</div>
 	)

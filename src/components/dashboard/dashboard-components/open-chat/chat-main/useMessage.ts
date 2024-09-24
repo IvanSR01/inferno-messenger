@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState, useCallback } from 'react'
-import messageService from '@/services/message-service/message.service'
 import { Message } from '@/shared/intreface/message.interface'
-
+import socketService from '@/services/socket-service/socket.service'
 type UseMessage = {
 	chatId: number
 	userId: number
@@ -22,7 +21,7 @@ export const useMessages = ({
 			messages.forEach((message, i) => {
 				if (!message.user) return
 				if (!message.isRead && message.user.id !== userId) {
-					messageService.emit('mark-as-read', {
+					socketService.emit('mark-as-read', {
 						messageId: message.id,
 						chatId,
 						isRefresh: i === messages.length - 1,
@@ -35,11 +34,11 @@ export const useMessages = ({
 
 	useEffect(() => {
 		// Присоединяемся к комнате по chatId
-		messageService.emit('join-chat', { chatId })
+		socketService.emit('join-chat', { chatId })
 
 		const fetchMessages = () => {
-			messageService.emit('get-messages', { chatId })
-			messageService.on('get-messages', (messages: Message[]) => {
+			socketService.emit('get-messages', { chatId })
+			socketService.on('get-messages', (messages: Message[]) => {
 				setMessages(messages)
 				if (!isNoRead) markAllMessagesAsRead(messages)
 			})
@@ -49,8 +48,8 @@ export const useMessages = ({
 
 		// Clean up: покидаем комнату и отключаем слушатели при размонтировании
 		return () => {
-			messageService.emit('leave-chat', { chatId })
-			messageService.off('get-messages')
+			socketService.emit('leave-chat', { chatId })
+			socketService.off('get-messages')
 		}
 	}, [trigger, chatId])
 

@@ -4,7 +4,7 @@ import { useAppDispatch } from '@/hooks/useAction'
 import { useError } from '@/hooks/useError'
 import { useProfile } from '@/hooks/useProfile'
 import chatService from '@/services/chat-service/chat.service'
-import messageService from '@/services/message-service/message.service'
+import socketService from '@/services/socket-service/socket.service'
 import userService from '@/services/user-service/user.service'
 import { CreateChat, UpdateChat } from '@/shared/intreface/chat.intreface'
 import { User } from '@/shared/intreface/user.interface'
@@ -48,7 +48,7 @@ export default function useChatController({ isUpdate, initialState }: Props) {
 	const { mutate } = useMutation({
 		mutationFn: (p: CreateChat) => chatService.createChat(p),
 		onSuccess: () => {
-			messageService.emit('get-chats', {
+			socketService.emit('get-chats', {
 				userId: me.id,
 			})
 			toast.success('Chat created successfully')

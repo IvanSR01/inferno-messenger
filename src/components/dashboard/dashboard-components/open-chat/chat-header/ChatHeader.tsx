@@ -1,20 +1,20 @@
-import { FC, useState } from 'react'
-import styles from './ChatHeader.module.scss'
+import UserAvatar from '@/components/user-avatar/UserAvatar'
+import { useAppDispatch } from '@/hooks/useAction'
+import { Channel } from '@/shared/intreface/channel.interface'
 import { Chat } from '@/shared/intreface/chat.intreface'
 import { User } from '@/shared/intreface/user.interface'
-import { useAppDispatch, useAppSelector } from '@/hooks/useAction'
-import { setChatId } from '@/store/slice/chat-select.slice'
-import { Fa42Group, FaArrowLeft } from 'react-icons/fa6'
-import UserAvatar from '@/components/user-avatar/UserAvatar'
-import { useGetUserStatus } from './useGetStatus'
-import clsx from 'clsx'
-import { GoInfo } from 'react-icons/go'
-import ChatDetails from '../../chat-details/ChatDetails'
-import { useRouter } from 'next/navigation'
 import ContentModal from '@/shared/ui/content-modal/ContentModal'
 import { getInterlocutor } from '@/shared/utils/getInterlocutor'
-import { Channel } from '@/shared/intreface/channel.interface'
-import { useProfile } from '@/hooks/useProfile'
+import { setChatId } from '@/store/slice/chat-select.slice'
+import { useRouter } from 'next/navigation'
+import { FC, useState } from 'react'
+import { FaArrowLeft } from 'react-icons/fa6'
+import { GoInfo } from 'react-icons/go'
+import { IoCallOutline } from 'react-icons/io5'
+import ChatDetails from '../../chat-details/ChatDetails'
+import styles from './ChatHeader.module.scss'
+import { useGetUserStatus } from './useGetStatus'
+import useStartCall from './useStartCall'
 
 interface Props {
 	chat: Chat | Channel
@@ -35,10 +35,10 @@ const HeaderTypeChat: FC<{
 	chat: Chat
 	me: User
 }> = ({ chat, me }) => {
+	const { startCall } = useStartCall(chat as Chat)
 	const status = useGetUserStatus(
 		chat.isPersonal ? getInterlocutor(chat.users, me as User).id : null
 	)
-
 	const renderStatus = () => {
 		if (!chat.isPersonal)
 			return chat?.typing?.length ? (
@@ -47,7 +47,11 @@ const HeaderTypeChat: FC<{
 				</div>
 			) : null
 
-		return status?.isOnline ? (
+		return chat?.typing?.length ? (
+			<div className={styles.status}>
+				{chat?.typing?.map((user) => user.fullName).join(', ')} typing...
+			</div>
+		) : status?.isOnline ? (
 			<div className={styles.status}>Online</div>
 		) : (
 			<div className={styles['last-seen']}>
@@ -66,7 +70,10 @@ const HeaderTypeChat: FC<{
 					<div>{renderStatus()}</div>
 				</div>
 			</div>
-			<Details chat={chat} type="chat" />
+			<div className={styles.icons}>
+				<IoCallOutline onClick={() => startCall()} />
+				<Details chat={chat} type="chat" />
+			</div>
 		</div>
 	)
 }
@@ -84,7 +91,7 @@ const HeaderTypeChannel: FC<{
 				<div className={styles.detalls}>
 					<div className={styles.name}>{chat?.name}</div>
 					<div className={styles['last-seen']}>
-						Subscriptions {chat.subscriptions.length}
+						Subscriptions {chat?.subscriptions?.length}
 					</div>
 				</div>
 			</div>

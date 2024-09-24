@@ -5,4 +5,5 @@ export type FormProps = {
 	inputData: Input[]
 	onSubmit: any
 	name: 'login' | 'register'
+	button: string
 }

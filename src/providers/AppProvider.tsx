@@ -1,12 +1,13 @@
 'use client'
-import { FC, PropsWithChildren, useEffect, useState } from 'react'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import QueryProvider from './QueryProvider'
-import { Provider } from 'react-redux'
-import store from '@/store/store'
 import Loader from '@/components/loader/Loader'
+import store from '@/store/store'
+import { FC, PropsWithChildren, useEffect, useState } from 'react'
+import { Provider } from 'react-redux'
+
+import CallProvider from './CallProvider'
+import QueryProvider from './QueryProvider'
 import ThemeProvider from './ThemeProvider'
+import LanguageProvider from './LanguageProvider'
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	useEffect(() => {
@@ -14,33 +15,41 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 		const timer = setTimeout(() => {
 			setIsLoading(false)
 		}, 4500)
+
 		return () => clearTimeout(timer)
+	}, [])
+	useEffect(() => {
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker
+				.register('/sw.js')
+				.then((registration) => {
+					console.log(
+						'Service Worker registered with scope:',
+						registration.scope
+					)
+				})
+				.catch((error) => {
+					console.error('Service Worker registration failed:', error)
+				})
+		}
 	}, [])
 	return (
 		<Provider store={store}>
 			<QueryProvider>
-				<ThemeProvider>
-					{isLoading ? (
-						<div className="fullscreen">
-							<Loader />
-						</div>
-					) : (
-						children
-					)}
-				</ThemeProvider>
+				<CallProvider>
+					<ThemeProvider>
+						<LanguageProvider>
+							{isLoading ? (
+								<div className="fullscreen">
+									<Loader />
+								</div>
+							) : (
+								children
+							)}
+						</LanguageProvider>
+					</ThemeProvider>
+				</CallProvider>
 			</QueryProvider>
-			<ToastContainer
-				position="top-right"
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="light"
-			/>
 		</Provider>
 	)
 }

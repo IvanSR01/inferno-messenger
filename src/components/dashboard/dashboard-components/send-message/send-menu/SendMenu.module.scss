@@ -1,35 +1,16 @@
-.modalSwitchType {
-	background-color: #fff;
-	border-radius: 20px;
-	box-shadow: 0 0 20px #e6e6e6;
-	top: -160px;
-	right: 20px;
-	position: absolute;
+.wrapper {
 	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	.switchType {
-		padding: 10px 20px;
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		cursor: pointer;
-		p {
-			width: 80%;
-			text-transform: uppercase;
-			font-weight: 600;
-		}
-		svg {
-			font-size: 30px;
-		}
-	}
-	.active {
-		background-color: #e6e6e6;
-	}
+	align-items: center;
+	gap: 20px;
 }
-
 .send {
 	font-size: 30px;
 	transition: 0.5s color;
 	cursor: pointer;
+}
+.switchType {
+	svg {
+		font-size: 30px;
+		cursor: pointer;
+	}
 }

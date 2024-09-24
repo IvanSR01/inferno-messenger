@@ -12,7 +12,8 @@
 	}
 }
 
-body {
+html {
+	background: var(--mainBackground);
 }
 
 @layer utilities {
@@ -32,6 +33,8 @@ body {
 	--subColor: #505050;
 	--userAvatar: #686868;
 	--select: #e5e5e5;
+	--myMessage: #2a2a2a;
+	--otherMessage: #ebebeb;
 }
 
 body[data-theme='dark'] {
@@ -45,6 +48,8 @@ body[data-theme='dark'] {
 	--subColor: #a0a0a0; // Дополнительный текст
 	--userAvatar: #8a8a8a; // Цвет для аватаров пользователей
 	--select: #303030;
+	--myMessage: #b3b3b3;
+	--otherMessage: #505050;
 }
 
 * {
@@ -71,6 +76,9 @@ body[data-theme='dark'] {
 }
 
 .fullscreen {
+	position: fixed;
+	top: 0;
+	left: 0;
 	height: 100vh;
 	width: 100vw;
 	display: flex;

@@ -1,13 +1,9 @@
-import { FC } from 'react'
-import styles from './SendMenu.module.scss'
-import { SendMenuProps } from './SendMenu-type'
-import { AnimatePresence, motion } from 'framer-motion'
-import { variants } from '@/shared/motion/variants'
-import clsx from 'clsx'
+import { FC, useRef } from 'react'
 import { Icons } from '../icons'
-import { FaCircleStop } from 'react-icons/fa6'
+import { SendMenuProps } from './SendMenu-type'
+import styles from './SendMenu.module.scss'
+
 const SendMenu: FC<SendMenuProps> = ({
-	isModalOpen,
 	messageType,
 	handleMessageTypeChange,
 	handleSendMessage,
@@ -15,60 +11,96 @@ const SendMenu: FC<SendMenuProps> = ({
 	startRecording,
 	stopRecording,
 	isRecording,
-	open,
-	close,
+	messageContent,
 }) => {
-	return (
-		<div
-			onMouseEnter={open}
-			onClick={close}
-			onTouchStart={open}
-			className={styles.wrapper}
-		>
-			<AnimatePresence>
-				<div
-					className={styles.send}
-					onClick={() => {
-						if (messageType === 'text') {
-							handleSendMessage()
-						} else if (isRecording) {
-							setIsRecording(false)
-							stopRecording()
-						} else {
-							setIsRecording(true)
-							startRecording()
-						}
-					}}
-				>
-					{isRecording ? <FaCircleStop /> : Icons[messageType]}
+	const longPressTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+	const handleMouseDown = () => {
+		longPressTimerRef.current = setTimeout(() => {
+			setIsRecording(true)
+			startRecording()
+		}, 500) // Задержка перед началом записи
+	}
+
+	const handleMouseUp = () => {
+		if (longPressTimerRef.current) {
+			clearTimeout(longPressTimerRef.current)
+		}
+	}
+
+	const renderIcon = () => {
+		if (messageContent) {
+			return (
+				<div onClick={handleSendMessage} className={styles.switchType}>
+					{Icons['text']}
 				</div>
-				{isModalOpen && (
-					<motion.div
-						variants={variants}
-						initial="init"
-						animate="animate"
-						exit="exit"
-						transition={{ duration: 0.3 }}
-						className={styles.modalSwitchType}
-					>
-						{Object.keys(Icons).map((key, i) => (
-							<div
-								key={i}
-								className={clsx(styles.switchType, {
-									[styles.active]: messageType === key,
-								})}
-								onClick={() =>
-									handleMessageTypeChange(key as keyof typeof Icons)
-								}
-							>
-								<p>{key}</p>
-								{Icons[key as keyof typeof Icons]}
-							</div>
-						))}
-					</motion.div>
-				)}
-			</AnimatePresence>
+			)
+		} else if (isRecording) {
+			return (
+				<div
+					onClick={() => {
+						setIsRecording(false)
+						stopRecording()
+					}}
+					className={styles.switchType}
+				>
+					{Icons['stop']}
+				</div>
+			)
+		} else {
+			return (
+				<div
+					onClick={() => {
+						handleMessageTypeChange(messageType === 'audio' ? 'video' : 'audio')
+					}}
+					onMouseDown={handleMouseDown}
+					onMouseUp={handleMouseUp} // Завершение записи при отпускании
+					onMouseLeave={handleMouseUp} // Очищаем таймер, если мышь покидает элемент
+					className={styles.switchType}
+				>
+					{Icons[messageType]}
+				</div>
+			)
+		}
+	}
+
+	const renderSubIcon = () => {
+		if (!messageContent) return null
+		if (messageContent.includes('<audio')) {
+			return (
+				<div
+					onClick={() => {
+						setIsRecording(true)
+						startRecording()
+					}}
+					className={styles.switchType}
+				>
+					{Icons['audio']}
+				</div>
+			)
+		}
+		if (messageContent.includes('<video')) {
+			return (
+				<div
+					onClick={() => {
+						setIsRecording(true)
+						startRecording()
+					}}
+					className={styles.switchType}
+				>
+					{Icons['video']}
+				</div>
+			)
+		}
+		return null
+	}
+
+	return (
+		<div className={styles.wrapper}>
+			{renderSubIcon()}
+			{renderIcon()}
 		</div>
 	)
 }
+
 export default SendMenu

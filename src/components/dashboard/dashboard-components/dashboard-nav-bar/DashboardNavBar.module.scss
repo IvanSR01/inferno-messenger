@@ -3,78 +3,122 @@
 	align-items: center;
 	flex-direction: row;
 	gap: 10px;
-	position: relative;
+	// position: relative;
+
 	.form {
 		position: relative;
 		width: clamp(300px, 90vw, 500px);
 		display: flex;
-		align-items: center;
 		flex-direction: column;
+		align-items: center;
 		padding: 20px;
 		background-color: var(--mainBackground);
+		color: var(--mainColor);
 		border: 2px solid var(--mainBorder);
 		border-radius: 20px;
 		gap: 20px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 	}
+
 	.open {
 		color: var(--subColor);
 		font-size: 40px;
 		cursor: pointer;
+		transition: color 0.3s ease;
+
+		&:hover {
+			color: var(--hoverColor);
+		}
 	}
+
 	.menu {
-		width: 250px;
-		top: 50px;
-		left: -215px;
-		position: absolute;
+		width: clamp(250px, 90vw, 400px);
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
 		z-index: 100000;
 		background-color: var(--mainBackground);
-		padding: 20px;
-		border-radius: 20px;
 		box-shadow: 0 0 20px var(--mainShadow);
 		font-size: clamp(14px, 1vw, 20px);
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
+		gap: 20px;
+		padding: 20px;
+
 		.user {
 			width: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			gap: 10px;
+			padding: 20px;
+			border-bottom: 1px solid var(--mainBorder);
+
 			.user-info {
 				display: flex;
 				flex-direction: column;
+				gap: 4px;
+
 				.username {
 					font-weight: bold;
 					font-size: 14px;
 					color: var(--mainColor);
 				}
+
 				.full-name {
 					color: var(--subColor);
+					font-size: 12px;
 				}
 			}
 		}
+
 		.link {
 			width: 100%;
 			display: flex;
 			flex-direction: column;
-			gap: 5px;
+			gap: 10px;
+
 			.item {
 				width: 100%;
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
 				cursor: pointer;
-				border-radius: 10px;
-				padding: 5px 10px;
-				transition: background-color 0.5s ease-in-out;
+				padding: 15px 30px;
+				transition: background-color 0.3s ease-in-out;
+				font-weight: 500;
 				color: var(--mainColor);
+				border-radius: 10px;
+
+				svg {
+					font-size: 30px;
+					transition: transform 0.3s;
+				}
+
+				&:hover {
+					background-color: var(--mainHover);
+					svg {
+						transform: scale(1.1);
+					}
+				}
+
+				&.select {
+					background-color: var(--mainActive);
+				}
 			}
-			.item:hover {
-				background-color: var(--mainShadow);
-			}
-			.select {
-				background-color: var(--mainShadow);
+		}
+
+		.theme {
+			margin-top: 15px;
+			padding: 0 20px;
+
+			> * {
+				border: none;
+				outline: none;
+				cursor: pointer;
+				background-color: transparent;
+				color: var(--mainColor);
 			}
 		}
 	}

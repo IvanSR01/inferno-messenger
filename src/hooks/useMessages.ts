@@ -1,11 +1,8 @@
-import { useProfile } from "@/hooks/useProfile";
-import messageService from "@/services/message-service/message.service";
-import userService from "@/services/user-service/user.service";
 import { Message } from "@/shared/intreface/message.interface";
 import { User } from "@/shared/intreface/user.interface";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo, useState, useCallback } from "react";
-
+import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import socketService from "@/services/socket-service/socket.service";
 // Получение сообщений
 
 type UseMessage = {
@@ -22,7 +19,7 @@ export const useMessages = ({ trigger, chatId, userId, isNoRead }: UseMessage) =
       messages.forEach((message, i) => {
         if (!message.user) return false;
         if (!message.isRead && message.user.id !== userId) {
-          messageService.emit("mark-as-read", {
+          socketService.emit("mark-as-read", {
             messageId: message.id,
             chatId,
             isRefresh: i === messages.length - 1,
@@ -35,8 +32,8 @@ export const useMessages = ({ trigger, chatId, userId, isNoRead }: UseMessage) =
 
   useEffect(() => {
     const fetchMessages = () => {
-      messageService.emit("get-messages", { chatId });
-      messageService.on("get-messages", (messages: Message[]) => {
+      socketService.emit("get-messages", { chatId });
+      socketService.on("get-messages", (messages: Message[]) => {
         setMessages(messages);
         if(!isNoRead) markAllMessagesAsRead(messages);
       });
@@ -46,7 +43,7 @@ export const useMessages = ({ trigger, chatId, userId, isNoRead }: UseMessage) =
 
     // Clean up listener on unmount
     return () => {
-      messageService.off("get-messages");
+      socketService.off("get-messages");
     };
   }, [trigger, chatId]);
 
@@ -57,7 +54,7 @@ export const useMessages = ({ trigger, chatId, userId, isNoRead }: UseMessage) =
 export const useSendMessage = () => {
   const client = useQueryClient();
   return (data: any) => {
-    messageService.emit("send-message", data);
+    socketService.emit("send-message", data);
     client.invalidateQueries({ queryKey: ["chats"] });
   };
 };

@@ -5,10 +5,21 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 20px 5%;
+	background-color: var(--mainBackgroundSub);
 	.back {
 		font-size: 20px;
 		cursor: pointer;
 		color: var(--mainColor);
+	}
+	.icons {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		svg {
+			color: var(--mainColor);
+			font-size: 20px;
+			cursor: pointer;
+		}
 	}
 	.center {
 		display: flex;

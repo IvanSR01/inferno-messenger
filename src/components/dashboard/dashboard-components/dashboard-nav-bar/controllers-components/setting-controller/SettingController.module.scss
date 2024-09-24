@@ -1,7 +1,7 @@
 .heading {
 	font-size: clamp(18px, 4.5vw, 22px);
 	font-weight: bold;
-	color: #000;
+	color: var(--mainColor);
 }
 .close {
 	position: absolute;

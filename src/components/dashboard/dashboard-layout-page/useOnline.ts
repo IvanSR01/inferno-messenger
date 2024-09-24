@@ -1,5 +1,5 @@
 import { useProfile } from '@/hooks/useProfile'
-import messageService from '@/services/message-service/message.service'
+import socketService from '@/services/socket-service/socket.service'
 import { useEffect } from 'react'
 
 export default function useOnline() {
@@ -11,7 +11,7 @@ export default function useOnline() {
 
 		const handleChange = (isOnline: boolean) => {
 			console.log(isOnline)
-			messageService.emit('toggle-status', {
+			socketService.emit('toggle-status', {
 				userId: profile.id,
 				status: isOnline ? 'online' : 'offline',
 			})

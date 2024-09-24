@@ -1,5 +1,5 @@
 import { User } from '@/shared/intreface/user.interface'
-import { FC, useState } from 'react'
+import { FC, Fragment, useState } from 'react'
 import styles from './Message.module.scss'
 import { Message } from '@/shared/intreface/message.interface'
 import { formatDate } from '@/shared/utils/formatDate'
@@ -24,14 +24,33 @@ const MessageUI: FC<Props> = ({
 	isLastUserMessage,
 	isFirstUserMessage,
 }) => {
-	const [showModal, setShowModal] = useState<boolean>(false)
-	const parseContent = parse(addFullUrl(message?.content as string), {
-		replace: (domNode: any) => {
-			if (domNode.name === 'audio' && domNode.attribs && domNode.attribs.src) {
-				return <Audio src={domNode.attribs.src as string} />
-			}
-		},
-	})
+	const [show, setShow] = useState<string>('')
+	const content: string[] = message?.content.split('\n') as string[]
+
+	const mediaContent = content.filter(
+		(item) =>
+			item.includes('<img') ||
+			item.includes('<video') ||
+			item.includes('<audio')
+	)
+	const text = content
+		.filter(
+			(item) =>
+				!item.includes('<img') &&
+				!item.includes('<video') &&
+				!item.includes('<audio')
+		)
+		.toString()
+	const parseContent = (item: string) => {
+		return parse(item, {
+			replace: (domNode: any) => {
+				if (domNode.name === 'audio') {
+					return <Audio src={domNode.attribs.src as string} />
+				}
+			},
+		})
+	}
+
 	return (
 		<div
 			className={clsx(styles.wrapper, {
@@ -52,13 +71,27 @@ const MessageUI: FC<Props> = ({
 					[styles['hiz-last']]: isLastUserMessage,
 					[styles['hiz-first']]: isFirstUserMessage,
 				})}
-				onClick={() => message?.content.includes('<img') && setShowModal(true)}
 			>
 				{message?.user?.id !== me?.id && isFirstUserMessage && (
 					<div className={styles['user-name']}>{message?.user?.fullName}</div>
 				)}
 				<div className={styles['message-content']}>
-					{parseContent}
+					<div className={styles.media}>
+						{mediaContent.map((item, i) => (
+							<Fragment key={i}>
+								<span onClick={() => !item.includes('<audio') && setShow(item)}>
+									{parseContent(addFullUrl(item))}
+								</span>
+								<ContentModal
+									showModal={item === show}
+									setShowModal={() => setShow('')}
+								>
+									{parseContent(item)}
+								</ContentModal>
+							</Fragment>
+						))}
+					</div>
+					<div className={styles['text-message']}>{parse(text)}</div>
 				</div>
 				<div className={styles.detalis}>
 					{formatDate(message?.sendTime as string)}
@@ -67,9 +100,6 @@ const MessageUI: FC<Props> = ({
 					)}
 				</div>
 			</div>
-			<ContentModal showModal={showModal} setShowModal={setShowModal}>
-				{parse(addFullUrl(message?.content as string))}
-			</ContentModal>
 		</div>
 	)
 }

@@ -9,10 +9,11 @@ import OAuth from '../auth-components/oauth/OAuth'
 import styles from './RegisterScreen.module.scss'
 import { useRouter } from 'next/navigation'
 import { AuthResponse } from '@/shared/intreface/auth-response.interface'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import useAuth from '@/hooks/useAuth'
 import { Input } from '@/screens/auth/auth.data'
 import AuthLayoutPage from '../auth-layout-page/AuthLayoutPage'
+import { LanguageContext } from '@/providers/LanguageProvider'
 
 interface Props {
 	inputData: Input[]
@@ -24,22 +25,27 @@ const RegisterScreen: FC<Props> = ({ inputData }) => {
 		api: 'register',
 		onError: (err) => toast.error(useError(err)),
 		onSuccess: (data) => {
-			push('/dashboard/chats')									
+			push('/dashboard/chats')
 		},
 	})
+	const { language } = useContext(LanguageContext)
 	return (
 		<AuthLayoutPage image="/auth/register.jpg" imageOrder="right">
-			<h2 className={styles.heading}>Register</h2>
+			<h2 className={styles.heading}>
+				{language === 'ENG' ? 'Register' : 'Регистрация'}
+			</h2>
 			<Form
 				name="register"
 				inputData={inputData}
 				onSubmit={onSubmit}
 				isPending={isPending}
+				button={language === 'ENG' ? 'Register' : 'Регистрация'}
 			/>
 			<p className={styles.or}>Or</p>
 			<OAuth />
 			<div className={styles.footer}>
-				Already have an account? <Link href="/auth/login">Login</Link>
+				{language === 'ENG' ? 'Already have an account?' : 'Уже есть аккаунт?'}{' '}
+				<Link href="/auth/login">{language === 'ENG' ? 'Login' : 'Вход'}</Link>
 			</div>
 		</AuthLayoutPage>
 	)

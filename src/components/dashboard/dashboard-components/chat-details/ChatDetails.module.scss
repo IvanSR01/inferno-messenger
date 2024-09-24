@@ -1,8 +1,9 @@
 .wrapper {
 	padding: 40px 20px;
 	border-radius: 20px;
-	background-color: #ffff;
+	background-color: var(--mainBackground);
 	width: clamp(300px, 90vw, 600px);
+	color: var(--mainColor);
 	height: auto;
 	.chat {
 		display: flex;
@@ -14,13 +15,13 @@
 			flex-direction: column;
 			justify-content: space-between;
 			.chat-name {
-				color: #000;
+				color: var(--mainColor);
 				font-weight: bold;
 				font-size: clamp(18px, 4.5vw, 22px);
 			}
 			p {
 				font-size: clamp(10px, 3vw, 14px);
-				color: #505050;
+				color: var(--subColor);
 			}
 		}
 	}
@@ -38,23 +39,23 @@
 			align-items: center;
 			justify-content: space-between;
 			cursor: pointer;
-			 > div {
+			> div {
 				display: flex;
 				gap: 20px;
 				align-items: center;
 				h4 {
-					color: #000;
+					color: var(--mainColor);
 					font-weight: bold;
 					font-size: clamp(16px, 4.5vw, 20px);
 				}
 				.online {
 					font-size: clamp(12px, 3vw, 16px);
 					font-weight: bold;
-					color: #007bff;
+					color: var(--status);
 				}
 				.out {
 					font-size: clamp(12px, 3vw, 16px);
-					color: #505050;
+					color: var(--subColor);
 				}
 			}
 			button {
@@ -71,8 +72,9 @@
 	align-items: center;
 	flex-direction: column;
 	padding: 20px;
-	background-color: #fff;
-	border: 2px solid #eeeeee;
+	background-color: var(--mainBackground);
+	color: var(--mainColor);
+	border: 2px solid var(--mainBorder);
 	border-radius: 20px;
 	gap: 20px;
 }

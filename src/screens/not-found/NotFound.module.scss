@@ -5,20 +5,21 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	background-color: var(--mainBackgroundSub);
 	h1 {
 		font-size: clamp(60px, 10vw, 120px);
 		font-weight: bold;
-		color: #1e1e1e;
+		color: var(--mainColor);
 	}
 	p {
 		font-size: clamp(10px, 3vw, 14px);
-		color: #505050;
+		color: var(--subColor);
 	}
 	span {
 		margin-top: 10px;
-		color: #505050;
+		color: var(--subColor);
 		a {
-			color: #007bff;
+			color: var(--status);
 		cursor: pointer;
 		}
 	}

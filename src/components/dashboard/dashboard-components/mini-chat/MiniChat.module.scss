@@ -26,6 +26,11 @@
 			p {
 				font-size: clamp(10px, 3vw, 14px);
 				color: var(--subColor);
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			.no-full-width {
+				width: 90%;
 			}
 			.detalls {
 				display: flex;

@@ -28,8 +28,14 @@ const Modal: FC<ModalProps> = ({
 	const modalRef = useRef<HTMLDivElement>(null)
 	return (
 		<AnimatePresence>
-			<div className={clsx(styles.modal, { [styles.showModal]: showModal })}>
-				{showModal && (
+			{showModal && (
+				<motion.div
+					variants={variants}
+					initial="init"
+					animate="animate"
+					exit="exit"
+					className={clsx(styles.modal, { [styles.showModal]: showModal })}
+				>
 					<motion.div
 						variants={variants}
 						initial="init"
@@ -40,8 +46,8 @@ const Modal: FC<ModalProps> = ({
 					>
 						{children}
 					</motion.div>
-				)}
-			</div>
+				</motion.div>
+			)}
 		</AnimatePresence>
 	)
 }

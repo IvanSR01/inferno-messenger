@@ -99,7 +99,7 @@ const renderLastMessage = (chat: Chat, user: User) => {
 
 	return (
 		<div className={styles['last-message']}>
-			<p>{reNameMessage(lastMessage.content)}</p>
+			<p className={styles['no-full-width']}>{reNameMessage(lastMessage.content)}</p>
 			<div className={styles.detalls}>
 				{isAuthor &&
 					(lastMessage.isRead ? <IoCheckmarkDone /> : <IoCheckmark />)}

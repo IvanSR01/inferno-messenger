@@ -1,0 +1,16 @@
+
+.wrapper { 
+	max-width: 1600px;
+	width: 90vw;
+	padding: 20px;
+	background-color: var(--mainBackground);
+	color: var(--mainColor);
+	border-radius: 20px;
+	.video {
+		width: 100%;
+		height: auto;
+		max-height: 100%;
+		overflow: hidden;
+		// object-fit: cover;
+	}
+}

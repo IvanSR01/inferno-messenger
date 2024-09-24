@@ -1,26 +1,27 @@
 .sendMessage {
-	position: relative;
+	bottom: 0;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	gap: 20px;
 	padding: 10px 3%;
+	z-index: 100000;
 	@media (max-width: 1200px) {
-		padding: 20px 3%;
-		min-height: 100px;
+		min-height: 80px;
+		position: fixed;
 	}
-	background-color: var(--mainBackground);
-	color: var(--mainColor);
-	.file,
-	.send {
+	svg,
+	svg {
 		font-size: 30px;
 		transition: 0.5s color;
 		cursor: pointer;
 	}
-	.file:hover,
-	.send:hover {
+	svg:hover,
+	svg:hover {
 		color: var(--status) !important;
 	}
+	background-color: var(--mainBackgroundSub);
+	color: var(--mainColor);
 	.input {
 		width: 100%;
 		height: 40px; /* Явная высота для инпута */
@@ -29,7 +30,7 @@
 		border-radius: 20px;
 		padding: 0px 10px; /* Добавляем отступы */
 		font-size: 16px;
-		background-color: var(--mainBackgroundSub);
+		background-color: var(--mainBackground);
 	}
 	.video {
 		width: 100%;

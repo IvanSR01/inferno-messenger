@@ -14,6 +14,8 @@ import userService from '@/services/user-service/user.service'
 import { toast } from 'react-toastify'
 import { useError } from '@/hooks/useError'
 import { IoCloseOutline } from 'react-icons/io5'
+import { useAppDispatch } from '@/hooks/useAction'
+import { setMe } from '@/store/slice/me.slice'
 
 interface Props {
 	close: any
@@ -35,9 +37,14 @@ const SettingController: FC<Props> = ({ close }) => {
 		},
 	})
 	const [profile, setProfile] = useState<any | null>(null)
+	const [checked, setChecked] = useState(profile?.language === 'RUS')
 	const user = useProfile()
+	const dispatch = useAppDispatch()
 	useEffect(() => {
-		if (user) setProfile(user)
+		if (user) {
+			setProfile(user)
+			dispatch(setMe(user))
+		}
 	}, [user])
 	const inputRef = useRef<HTMLInputElement>(null)
 	const setPicture = (value: string) =>
@@ -73,7 +80,11 @@ const SettingController: FC<Props> = ({ close }) => {
 						placeholder={input.placeholder}
 						value={profile?.[input.name as any]}
 						onChange={(e: any) =>
-							setProfile({ ...profile, [input.name]: e.target.value })
+							setProfile({
+								...profile,
+								[input.name]:
+									input.type === 'checkbox' ? e.target.checked : e.target.value,
+							})
 						}
 						type={input.type}
 					/>
@@ -111,6 +122,11 @@ const setting = {
 			placeholder: 'Enter your username',
 			type: 'text',
 			description: 'This is your username',
+		},
+		{
+			name: 'language',
+			type: 'text',
+			description: 'Enter to RUS | ENG',
 		},
 	],
 	heading: 'Setting',

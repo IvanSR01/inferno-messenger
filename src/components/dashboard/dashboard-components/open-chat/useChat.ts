@@ -1,4 +1,4 @@
-import messageService from '@/services/message-service/message.service'
+import socketService from '@/services/socket-service/socket.service'
 import { Chat } from '@/shared/intreface/chat.intreface'
 import { useMemo, useState, useEffect } from 'react'
 
@@ -8,23 +8,23 @@ export function useChat(id: number, initialState: Chat): Chat {
 	useEffect(() => {
 		if (id) {
 			// Присоединяемся к комнате только один раз
-			messageService.emit('join-chat-id', {
+			socketService.emit('join-chat-id', {
 				chatId: id,
 			})
 
 			// Запрашиваем чаты только один раз
-			messageService.emit('get-chat', {
+			socketService.emit('get-chat', {
 				chatId: id,
 			})
 
 			// Обрабатываем событие получения чатов
-			messageService.on('get-chat', (chat: Chat) => {
+			socketService.on('get-chat', (chat: Chat) => {
 				setChatFromSocket(chat)
 			})
 
 			// Чистим слушатели при размонтировании компонента
 			return () => {
-				messageService.off('get-chat')
+				socketService.off('get-chat')
 			}
 		}
 	}, [id])

@@ -1,11 +1,11 @@
 // services/MessageService.ts
 import { io, Socket } from "socket.io-client";
 
-class MessageService {
+class SocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io("https://messenger-elhy.onrender.com");
+    this.socket = io('https://messenger-elhy.onrender.com');
   }
 
   public on(event: string, callback: (data: any) => void): void {
@@ -21,4 +21,4 @@ class MessageService {
   }
 }
 
-export default new MessageService();
+export default new SocketService();

@@ -5,7 +5,7 @@ const pwa = withPWA({
 	dest: 'public',
 	runtimeCaching,
 	register: true,
-  skipWaiting: true,
+	skipWaiting: true,
 })
 const nextConfig = {
 	env: {
@@ -13,4 +13,4 @@ const nextConfig = {
 	},
 }
 
-export default nextConfig // Экспортируем конфигурацию
+export default pwa(nextConfig) // Экспортируем конфигурацию

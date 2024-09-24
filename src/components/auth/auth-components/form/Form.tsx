@@ -6,7 +6,7 @@ import { FormProps } from './Form-type'
 import styles from './Form.module.scss'
 import Button from '@/shared/ui/button/Button'
 
-const Form: FC<FormProps> = ({ inputData, onSubmit, isPending, name }) => {
+const Form: FC<FormProps> = ({ inputData, onSubmit, isPending, name, button }) => {
 	type ExtractNames<T> = T extends { name: infer U } ? U : never
 	type InputNames = ExtractNames<(typeof inputData)[number]>
 
@@ -61,7 +61,7 @@ const Form: FC<FormProps> = ({ inputData, onSubmit, isPending, name }) => {
 				</div>
 			))}
 			<Button type="submit" disabled={isPending}>
-				{name}
+				{button}
 			</Button>
 		</form>
 	)

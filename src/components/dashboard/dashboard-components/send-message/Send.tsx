@@ -21,9 +21,6 @@ interface SendProps {
 
 const Send: FC<SendProps> = ({ handleSend, contentType, handleTyping }) => {
 	const {
-		isModalOpen,
-		open,
-		close,
 		messageType,
 		handleMessageTypeChange,
 		mediaUrl,
@@ -79,7 +76,12 @@ const Send: FC<SendProps> = ({ handleSend, contentType, handleTyping }) => {
 				<div className={styles.sendMessage}>
 					<div className={styles.file}>
 						{mediaUrl ? (
-							<FaTrashAlt onClick={() => setMediaUrl(null)} />
+							<FaTrashAlt
+								onClick={() => {
+									setMediaUrl(null)
+									setMessageContent('')
+								}}
+							/>
 						) : (
 							<>
 								<FiPaperclip onClick={() => inputRef.current?.click()} />
@@ -112,9 +114,6 @@ const Send: FC<SendProps> = ({ handleSend, contentType, handleTyping }) => {
 						/>
 					)}
 					<SendMenu
-						isModalOpen={isModalOpen}
-						open={open}
-						close={close}
 						messageType={messageType}
 						handleMessageTypeChange={handleMessageTypeChange}
 						startRecording={startRecording}
@@ -122,6 +121,7 @@ const Send: FC<SendProps> = ({ handleSend, contentType, handleTyping }) => {
 						isRecording={isRecording}
 						setIsRecording={setIsRecording}
 						handleSendMessage={() => handleSendMessage(messageContent)}
+						messageContent={messageContent}
 					/>
 					<FileModal
 						clearContent={clearContent}
@@ -129,14 +129,6 @@ const Send: FC<SendProps> = ({ handleSend, contentType, handleTyping }) => {
 						content={content}
 						upload={changeFiles}
 					/>
-					{mediaUrl && (
-						<div
-							onClick={() => handleSendMessage(messageContent)}
-							className={styles.send}
-						>
-							{Icons['text']}
-						</div>
-					)}
 				</div>
 			)}
 		/>

@@ -5,7 +5,7 @@ import { Icons } from './icons'
 
 export const useMessageController = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [messageType, setMessageType] = useState<keyof typeof Icons>('text')
+	const [messageType, setMessageType] = useState<keyof typeof Icons>('audio')
 	const [mediaUrl, setMediaUrl] = useState<string | null>(null)
 	const [blob, setBlob] = useState<Blob | null>(null)
 	const [messageContent, setMessageContent] = useState<string>('')
@@ -69,4 +69,3 @@ const blobController = async (blob: Blob | null, messageType: string) => {
 		return null
 	}
 }
-

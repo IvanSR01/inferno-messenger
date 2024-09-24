@@ -9,12 +9,13 @@ import { setChatId, setSelectChatType } from '@/store/slice/chat-select.slice'
 import clsx from 'clsx'
 import { AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { FC, useEffect } from 'react'
+import { FC, useContext, useEffect } from 'react'
 import MiniChannel from '../mini-channel/MiniChannel'
 import MiniChat from '../mini-chat/MiniChat'
 import ToggleChats from '../toggle-chats/ToggleChats'
 import styles from './Chats.module.scss'
 import { useFilter } from '@/hooks/useFilter'
+import { LanguageContext } from '@/providers/LanguageProvider'
 
 const Chats: FC = () => {
 	const me = useProfile()
@@ -26,6 +27,7 @@ const Chats: FC = () => {
 	const filter = useAppSelector((state) => state.search.search)
 	const chatsFilter = useFilter(chats, 'chat', filter, me)
 	const channelFilter = useFilter(channel as any[], 'channel', filter, me)
+	const { language } = useContext(LanguageContext)
 	const dispatch = useAppDispatch()
 	useEffect(() => {
 		if (selectChatType === 'chats') {
@@ -39,7 +41,10 @@ const Chats: FC = () => {
 			})}
 		>
 			<ToggleChats
-				selectChatType={selectChatType}
+				languageData={[
+					`${language === 'ENG' ? 'Chats' : 'Чаты'}`,
+					`${language === 'ENG' ? 'Channels' : 'Каналы'}`,
+				]}
 				selectData={['chats', 'channel']}
 				onClick={(value: any) => dispatch(setSelectChatType(value))}
 			/>

@@ -11,7 +11,6 @@ const Audio: FC<Props> = ({ src }) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [currentTime, setCurrentTime] = useState(0)
 	const [duration, setDuration] = useState(0)
-
 	useEffect(() => {
 		const audio = audioRef.current
 
@@ -22,7 +21,6 @@ const Audio: FC<Props> = ({ src }) => {
 		const setAudioDuration = () => {
 			setDuration(audio?.duration || 0)
 		}
-
 
 		if (audio) {
 			audio.addEventListener('timeupdate', updateProgress)
@@ -37,7 +35,7 @@ const Audio: FC<Props> = ({ src }) => {
 		}
 	}, [])
 	useEffect(() => {
-		if(duration === currentTime) setIsPlaying(false)
+		if (duration === currentTime) setIsPlaying(false)
 	}, [duration, currentTime])
 	const togglePlayPause = () => {
 		const audio = audioRef.current
@@ -56,7 +54,6 @@ const Audio: FC<Props> = ({ src }) => {
 		const seconds = Math.floor(time % 60)
 		return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 	}
-
 	return (
 		<div className={styles.telegramAudio}>
 			<audio ref={audioRef} src={src} />
@@ -64,25 +61,23 @@ const Audio: FC<Props> = ({ src }) => {
 				{isPlaying ? <FaPause /> : <FaPlay />}
 			</button>
 			<div className={styles.progressBar}>
-				{/* <div
-					className={styles.progress}
-					style={{ width: `${(currentTime / duration) * 100}%` }}
-				/> */}
-				<div className={styles.waveform}>
-					{Array.from({ length: 25 }).map((_, index) => (
-						<div
-							key={index}
-							className={styles.waveBar}
-							style={{
-								height: `${Math.random() * 50 + 10}px`,
-								opacity: currentTime / duration > index / 50 ? 1 : 0.5,
-							}}
-						/>
-					))}
+				<div className={styles.flex}>
+					<div className={styles.waveform}>
+						{Array.from({ length: 65 }).map((_, index) => (
+							<div
+								key={index}
+								className={styles.waveBar}
+								style={{
+									height: `${index < 1 && index === 65 ? 5 : Math.random() * 25 + 10}px`,
+									opacity: currentTime / duration > index / 50 ? 1 : 0.5,
+								}}
+							/>
+						))}
+					</div>
+					<div className={styles.time}>
+						{formatTime(currentTime)} / {formatTime(duration)}
+					</div>
 				</div>
-			</div>
-			<div className={styles.time}>
-				{formatTime(currentTime)} / {formatTime(duration)}
 			</div>
 		</div>
 	)
