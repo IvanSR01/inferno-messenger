@@ -3,7 +3,7 @@ import socketService from '@/services/socket-service/socket.service'
 import { useEffect } from 'react'
 
 export default function useOnline() {
-	const profile = useProfile()
+	const { user: profile } = useProfile()
 	useEffect(() => {
 		if (!profile?.id) {
 			return

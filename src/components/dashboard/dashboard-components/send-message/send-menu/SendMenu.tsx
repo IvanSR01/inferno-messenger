@@ -54,11 +54,9 @@ const SendMenu: FC<SendMenuProps> = ({
 						handleMessageTypeChange(messageType === 'audio' ? 'video' : 'audio')
 					}}
 					onTouchStart={(e) => {
-						e.preventDefault() // это может помочь избежать конфликтов
 						handleMouseDown()
 					}}
 					onTouchEnd={(e) => {
-						e.preventDefault()
 						handleMouseUp()
 					}}
 					onMouseDown={handleMouseDown}

@@ -13,7 +13,7 @@ import { useChat } from './useChat'
 import { useTyping } from './useTyping'
 export default function Chat() {
 	const { chat } = useAppSelector((state) => state.chat)
-	const me = useProfile()
+	const { user: me } = useProfile()
 	const { data: chatFromQuery } = useQuery({
 		queryKey: ['chat', chat?.id],
 		queryFn: () => chatService.getChat(chat?.id as number),
