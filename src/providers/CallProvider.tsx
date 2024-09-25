@@ -18,7 +18,7 @@ const defaultValue: CallContext = {
 export const CallContext = createContext<CallContext>(defaultValue)
 
 const CallProvider: FC<PropsWithChildren> = ({ children }) => {
-	const me = useProfile()
+	const { user: me} = useProfile()
 	const { callId, callStatus, changeCall } = useCheckActiveCall(
 		me?.id as number
 	)

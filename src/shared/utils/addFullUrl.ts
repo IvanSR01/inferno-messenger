@@ -1,3 +1,6 @@
 export const addFullUrl = (url: string) => {
-  return url.replaceAll("/uploads", `https://messenger-elhy.onrender.com/uploads`);
-};
+	return url.replaceAll(
+		'/uploads',
+		`${process.env.NEST_PUBLIC_API_URL}/uploads`
+	)
+}

@@ -8,6 +8,7 @@ import CallProvider from './CallProvider'
 import QueryProvider from './QueryProvider'
 import ThemeProvider from './ThemeProvider'
 import LanguageProvider from './LanguageProvider'
+import PullToRefresh from '@/components/pull-to-refetch/PullToRefetch'
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	useEffect(() => {
@@ -46,6 +47,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
 							) : (
 								children
 							)}
+							<PullToRefresh />
 						</LanguageProvider>
 					</ThemeProvider>
 				</CallProvider>

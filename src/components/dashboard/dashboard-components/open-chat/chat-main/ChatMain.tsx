@@ -12,7 +12,7 @@ import { useTyping } from '../useTyping'
 
 const ChatMain: FC = () => {
 	const { chat } = useAppSelector((state) => state.chat)
-	const profile = useProfile()
+	const { user: profile } = useProfile()
 	const { messages } = useMessages({
 		chatId: chat?.id as number,
 		trigger: 'chat-main',
@@ -63,7 +63,11 @@ const ChatMain: FC = () => {
 				</div>
 			)}
 
-			<SendMessage handleSend={handleSendMessage} contentType="message" handleTyping={handleTyping} />
+			<SendMessage
+				handleSend={handleSendMessage}
+				contentType="message"
+				handleTyping={handleTyping}
+			/>
 		</div>
 	)
 }

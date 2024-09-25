@@ -32,7 +32,7 @@ const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
 	useEffect(() => {
 		document.body.setAttribute('data-theme', theme)
 	}, [theme])
-	const me = useProfile()
+	const { user: me } = useProfile()
 	useEffect(() => {
 		if (me) {
 			setLocalStorage('language', me.language)

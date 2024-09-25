@@ -18,7 +18,7 @@ import { useFilter } from '@/hooks/useFilter'
 import { LanguageContext } from '@/providers/LanguageProvider'
 
 const Chats: FC = () => {
-	const me = useProfile()
+	const {user: me} = useProfile()
 	const chats = useChats(me?.id as number)
 	const channel = useChannels()
 	const { chat: selectChat, selectChatType } = useAppSelector(

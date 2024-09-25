@@ -12,6 +12,7 @@ export default function useCheckActiveCall(userId: number): Output {
 	const [callStatus, setCallStatus] = useState<CallStatus | null>(null)
 	useEffect(() => {
 		const getRequestCall = (call: any[]) => {
+			if(!call) return;
 			setCall(call![0])
 		}
 

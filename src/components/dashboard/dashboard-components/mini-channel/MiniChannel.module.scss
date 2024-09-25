@@ -12,7 +12,7 @@
 	.info {
 		width: 80%;
 		.chat-name {
-			color: #000;
+			color: var(--mainColor);
 			font-weight: bold;
 			font-size: clamp(16px, 4.5vw, 20px);
 		}
@@ -22,7 +22,7 @@
 			justify-content: space-between;
 			p {
 				font-size: clamp(10px, 3vw, 14px);
-				color: #505050;
+				color: var(--subColor);
 			}
 			.detalls {
 				display: flex;
@@ -30,7 +30,7 @@
 				gap: 10px;
 			}
 			.isRead {
-				color: #0157c8;
+				color: var(--status);
 			}
 		}
 	}
@@ -43,5 +43,7 @@
 }
 
 .selected {
-	background-color: #e5e5e5;
+	> .chat {
+		background-color: var(--select);
+	}
 }

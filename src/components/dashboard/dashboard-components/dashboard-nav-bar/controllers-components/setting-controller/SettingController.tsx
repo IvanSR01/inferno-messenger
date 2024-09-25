@@ -1,21 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { FC, useEffect, useRef, useState } from 'react'
-import styles from './SettingController.module.scss'
-import Input from '@/shared/ui/input/Input'
-import Button from '@/shared/ui/button/Button'
-import { User } from '@/shared/intreface/user.interface'
-import { useProfile } from '@/hooks/useProfile'
 import UserAvatar from '@/components/user-avatar/UserAvatar'
-import { FiEdit3 } from 'react-icons/fi'
-import uploadsFiles from '@/shared/utils/uploadsFiles'
-import { addFullUrl } from '@/shared/utils/addFullUrl'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import userService from '@/services/user-service/user.service'
-import { toast } from 'react-toastify'
 import { useError } from '@/hooks/useError'
+import { useProfile } from '@/hooks/useProfile'
+import userService from '@/services/user-service/user.service'
+import { User } from '@/shared/intreface/user.interface'
+import Button from '@/shared/ui/button/Button'
+import Input from '@/shared/ui/input/Input'
+import uploadsFiles from '@/shared/utils/uploadsFiles'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { FC, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { FiEdit3 } from 'react-icons/fi'
 import { IoCloseOutline } from 'react-icons/io5'
-import { useAppDispatch } from '@/hooks/useAction'
-import { setMe } from '@/store/slice/me.slice'
+import { toast } from 'react-toastify'
+import styles from './SettingController.module.scss'
+import { LanguageContext } from '@/providers/LanguageProvider'
 
 interface Props {
 	close: any
@@ -26,11 +24,9 @@ const SettingController: FC<Props> = ({ close }) => {
 
 	const { mutate } = useMutation({
 		mutationFn: () => userService.updateProfile(profile as User),
-		onSuccess: () => {
+		onSuccess: (d) => {
 			toast.success('Profile updated successfully')
-			client.invalidateQueries({
-				queryKey: ['profile'],
-			})
+			globalReState(profile)
 		},
 		onError: (err) => {
 			toast.error(useError(err))
@@ -38,23 +34,24 @@ const SettingController: FC<Props> = ({ close }) => {
 	})
 	const [profile, setProfile] = useState<any | null>(null)
 	const [checked, setChecked] = useState(profile?.language === 'RUS')
-	const user = useProfile()
-	const dispatch = useAppDispatch()
+	const { user, globalReState } = useProfile()
 	useEffect(() => {
 		if (user) {
 			setProfile(user)
-			dispatch(setMe(user))
 		}
 	}, [user])
 	const inputRef = useRef<HTMLInputElement>(null)
 	const setPicture = (value: string) =>
 		setProfile({ ...profile, picture: `/${value}` })
+	const { language } = useContext(LanguageContext)
 	return (
 		<>
 			<div className={styles.close} onClick={() => close()}>
 				<IoCloseOutline />
 			</div>
-			<h2 className={styles.heading}>{setting.heading}</h2>
+			<h2 className={styles.heading}>
+				{getSettingControllerData(language).heading}
+			</h2>
 			<div className={styles.avatar} onClick={() => inputRef.current?.click()}>
 				<UserAvatar src={profile?.picture} alt={profile?.fullName} size="big" />
 				<p className={styles.edit}>
@@ -74,7 +71,7 @@ const SettingController: FC<Props> = ({ close }) => {
 					}
 				/>
 			</div>
-			{setting.inputs.map((input, index) => (
+			{getSettingControllerData(language).inputs.map((input, index) => (
 				<div className={styles.group} key={index}>
 					<Input
 						placeholder={input.placeholder}
@@ -97,37 +94,35 @@ const SettingController: FC<Props> = ({ close }) => {
 }
 export default SettingController
 
-const setting = {
-	inputs: [
-		{
-			name: 'fullName',
-			placeholder: 'Enter your full name',
-			type: 'text',
-			description: 'This is your full name',
-		},
-		{
-			name: 'email',
-			placeholder: 'Enter your email',
-			type: 'email',
-			description: 'This is your email',
-		},
-		{
-			name: 'password',
-			placeholder: 'Enter your password',
-			type: 'password',
-			description: 'This is your password (Hash)',
-		},
-		{
-			name: 'username',
-			placeholder: 'Enter your username',
-			type: 'text',
-			description: 'This is your username',
-		},
-		{
-			name: 'language',
-			type: 'text',
-			description: 'Enter to RUS | ENG',
-		},
-	],
-	heading: 'Setting',
+export const getSettingControllerData = (language: 'ENG' | 'RUS') => {
+	const setting = {
+		inputs: [
+			{
+				name: 'fullName',
+				placeholder: `${language === 'ENG' ? 'Enter your full name' : 'Введи свое имя'}`,
+				type: 'text',
+				description: `${language === 'ENG' ? 'This is your full name' : 'Это ваше имя'}`,
+			},
+			{
+				name: 'email',
+				placeholder: `${language === 'ENG' ? 'Enter your email' : 'Введи свою почту'}`,
+				type: 'email',
+				description: `${language === 'ENG' ? 'This is your email' : 'Это ваша почта'}`,
+			},
+			{
+				name: 'username',
+				placeholder: `${language === 'ENG' ? 'Enter your username' : 'Введи свою юзернейм'}`,
+				type: 'text',
+				description: `${language === 'ENG' ? 'This is your username' : 'Это ваш юзернейм'}`,
+			},
+			{
+				name: 'language',
+				type: 'text',
+				description: `${language === 'ENG' ? 'Enter to RUS | ENG' : 'Введи RUS | ENG'}`,
+			},
+		],
+		heading: `${language === 'ENG' ? 'Setting' : 'Настройки'}`,
+	}
+
+	return useMemo(() => setting, [setting, language])
 }

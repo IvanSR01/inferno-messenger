@@ -7,7 +7,7 @@ import { Chat } from '@/shared/intreface/chat.intreface'
 import { useContext, useMemo } from 'react'
 
 export default function useStartCall(chat: Chat) {
-	const me = useProfile()
+	const {user: profile} = useProfile()
 	const { setCall } = useContext(CallContext)
 
 	const startCall = () => {
@@ -16,7 +16,7 @@ export default function useStartCall(chat: Chat) {
 		})
 
 		socketService.emit('create-call', {
-			fromUserId: me.id,
+			fromUserId: profile.id,
 			toUserId: chat.users.map((user) => user.id),
 			callType: 'video',
 			isGroup: false,

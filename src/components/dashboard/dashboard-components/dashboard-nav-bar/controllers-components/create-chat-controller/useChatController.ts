@@ -39,7 +39,7 @@ export default function useChatController({ isUpdate, initialState }: Props) {
 	const [chat, setChat] = useState<TypeChatController>(
 		initialState ? initialState : defaultState
 	)
-	const me = useProfile()
+	const {user: profile} = useProfile()
 	const dispatch = useAppDispatch()
 	const { data } = useQuery({
 		queryKey: ['users'],
@@ -49,7 +49,7 @@ export default function useChatController({ isUpdate, initialState }: Props) {
 		mutationFn: (p: CreateChat) => chatService.createChat(p),
 		onSuccess: () => {
 			socketService.emit('get-chats', {
-				userId: me.id,
+				userId: profile.id,
 			})
 			toast.success('Chat created successfully')
 		},

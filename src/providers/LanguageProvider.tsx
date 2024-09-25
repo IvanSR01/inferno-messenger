@@ -26,12 +26,11 @@ const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
 		getLocalStorage<ILanguageContext['language']>('language') as any
 	)
 
-	const me = useProfile()
-
+	const {user: profile} = useProfile()
 	useEffect(() => {
-		if (me && me.language) {
-			setLocalStorage('language', me.language)
-			setLanguage(me.language as ILanguageContext['language'])
+		if (profile && profile.language) {
+			setLocalStorage('language', profile.language)
+			setLanguage(profile.language as ILanguageContext['language'])
 		} else {
 			setLocalStorage(
 				'language',
@@ -39,7 +38,7 @@ const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
 			)
 			setLanguage(navigator.language === 'ru-RU' ? 'RUS' : 'ENG')
 		}
-	}, [me])
+	}, [profile])
 
 
 	return (

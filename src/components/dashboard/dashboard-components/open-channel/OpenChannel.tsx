@@ -14,7 +14,7 @@ import clsx from 'clsx'
 
 const OpenChannel: FC = () => {
 	const { chat } = useAppSelector((state) => state.chat)
-	const me = useProfile()
+	const {user: profile} = useProfile()
 	const { data, isLoading } = useQuery({
 		queryKey: ['chat', chat?.id],
 		queryFn: () => channelService.getChannel(chat?.id as number),
@@ -29,7 +29,7 @@ const OpenChannel: FC = () => {
 
 	return chat?.id ? (
 		<div className={styles.wrapper}>
-			<ChannelHeader chat={data as Channel} me={me as User} type="channel" />
+			<ChannelHeader chat={data as Channel} me={profile as User} type="channel" />
 			<ChannelMain chat={data as Channel} />
 		</div>
 	) : (

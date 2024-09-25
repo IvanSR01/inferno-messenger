@@ -1,12 +1,14 @@
 import { FC, useRef, useState, useEffect } from 'react'
 import { FaPlay, FaPause } from 'react-icons/fa'
 import styles from './Audio.module.scss'
+import clsx from 'clsx'
 
 interface Props {
 	src: string
+	className?: string
 }
 
-const Audio: FC<Props> = ({ src }) => {
+const Audio: FC<Props> = ({ src, className }) => {
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [currentTime, setCurrentTime] = useState(0)
@@ -55,7 +57,7 @@ const Audio: FC<Props> = ({ src }) => {
 		return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 	}
 	return (
-		<div className={styles.telegramAudio}>
+		<div className={clsx(styles.telegramAudio, className)}>
 			<audio ref={audioRef} src={src} />
 			<button className={styles.playPauseButton} onClick={togglePlayPause}>
 				{isPlaying ? <FaPause /> : <FaPlay />}

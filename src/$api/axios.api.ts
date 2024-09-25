@@ -1,13 +1,13 @@
 import { useError } from '@/hooks/useError'
 import authService from '@/services/auth-service/auth.service'
-import { getTokens } from '@/shared/cookie/tokens.cookie'
+import { getTokens, removeTokens } from '@/shared/cookie/tokens.cookie'
 import axios from 'axios'
 
 const defaultApi = axios.create({
-	baseURL: process.env.NEST_PUBLIC_API_URL,
+	baseURL: `${process.env.NEST_PUBLIC_API_URL}/api`,
 })
 const accessApi = axios.create({
-	baseURL: process.env.NEST_PUBLIC_API_URL,
+	baseURL: `${process.env.NEST_PUBLIC_API_URL}/api`,
 })
 
 accessApi.interceptors.request.use((config) => {
@@ -34,7 +34,7 @@ accessApi.interceptors.response.use(
 				const res = await authService.updateTokens()
 				return accessApi.request(originalRequest)
 			} catch (e) {
-				// if (useError(e) === 'jwt expired') removeTokens()
+				if (useError(e) === 'jwt expired' || 'Unauthorized') removeTokens()
 			}
 		}
 		throw error

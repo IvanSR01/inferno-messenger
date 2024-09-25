@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect } from 'react'
 
 export function useChats(id: number): Chat[] {
     const [chatsFromSocket, setChatsFromSocket] = useState<Chat[]>([])
-
+		console.log(chatsFromSocket)
     useEffect(() => {
         if (id) {
             // Присоединяемся к комнате только один раз

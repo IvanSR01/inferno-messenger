@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import useFileModal from './file-modal/useFileModal'
 import FileModal from './file-modal/FileModal'
 import { useMessageController } from './useMessageController'
+import Audio from '@/components/audio/Audio'
 
 interface SendProps {
 	handleSend: (messageContent: string, mediaUrl?: string) => void

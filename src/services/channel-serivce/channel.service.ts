@@ -35,6 +35,13 @@ class ChannelService {
 
 		return data
 	}
+	async toggleSubChannel(id: number) {
+		const { data } = await accessApi<Channel>({
+			method: 'PATCH',
+			url: `/channel/toggle-subscription/${id}`,
+		})
+		return data
+	}
 }
 
 export default new ChannelService()

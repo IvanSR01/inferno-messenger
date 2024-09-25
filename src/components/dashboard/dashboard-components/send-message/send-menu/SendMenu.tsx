@@ -53,9 +53,17 @@ const SendMenu: FC<SendMenuProps> = ({
 					onClick={() => {
 						handleMessageTypeChange(messageType === 'audio' ? 'video' : 'audio')
 					}}
+					onTouchStart={(e) => {
+						e.preventDefault() // это может помочь избежать конфликтов
+						handleMouseDown()
+					}}
+					onTouchEnd={(e) => {
+						e.preventDefault()
+						handleMouseUp()
+					}}
 					onMouseDown={handleMouseDown}
-					onMouseUp={handleMouseUp} // Завершение записи при отпускании
-					onMouseLeave={handleMouseUp} // Очищаем таймер, если мышь покидает элемент
+					onMouseUp={handleMouseUp}
+					onMouseLeave={handleMouseUp}
 					className={styles.switchType}
 				>
 					{Icons[messageType]}

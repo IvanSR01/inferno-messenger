@@ -17,6 +17,8 @@ import CreateChannelController from './controllers-components/create-channel-con
 import Input from '@/shared/ui/input/Input'
 import { ThemeContext } from '@/providers/ThemeProvider'
 import { setLocalStorage } from '@/shared/local/local'
+import { TypeStateModals, getDataModal, getDataNav } from './data'
+import { LanguageContext } from '@/providers/LanguageProvider'
 
 const variants = {
 	init: {
@@ -30,53 +32,8 @@ const variants = {
 	},
 }
 
-const navData = [
-	{
-		name: 'Chats',
-		link: '/chats',
-	},
-	{
-		name: 'Users',
-		link: '/users',
-	},
-]
-
-const modals: TypeModal[] = [
-	{
-		title: 'Settings',
-		name: 'setting',
-		Icon: () => <FiSettings />,
-		Component: ({ close }) => <SettingController close={close} />,
-	},
-	{
-		title: 'Add Chat',
-		name: 'chat',
-		Icon: () => <IoPersonAddOutline />,
-		Component: ({ close }) => <CreateChatController close={close} />,
-	},
-	{
-		title: 'Add Channel',
-		name: 'channel',
-		Icon: () => <AiOutlineUsergroupAdd />,
-		Component: ({ close }) => <CreateChannelController close={close} />,
-	},
-]
-
-type TypeModal = {
-	title: string
-	name: keyof TypeStateModals
-	Component: FC<{ close: any }>
-	Icon: FC
-}
-
-type TypeStateModals = {
-	setting: boolean
-	chat: boolean
-	channel: boolean
-}
-
 const DashboardNavBar: FC = () => {
-	const profile = useProfile()
+	const { user: profile } = useProfile()
 	const pathname = usePathname()
 	const [show, setShow] = useState<boolean>(false)
 	const [stateModals, setStateModals] = useState<TypeStateModals>({
@@ -84,6 +41,8 @@ const DashboardNavBar: FC = () => {
 		chat: false,
 		channel: false,
 	})
+	console.log(profile)
+
 	const ref = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const handlerClick = (e: any) => {
@@ -98,6 +57,7 @@ const DashboardNavBar: FC = () => {
 		return () => document.removeEventListener('click', handlerClick)
 	})
 	const { theme, setTheme } = useContext(ThemeContext)
+	const { language } = useContext(LanguageContext)
 	const [checked, setChecked] = useState(theme === 'dark')
 	const handlerChange = (value: boolean) => {
 		if (value) {
@@ -112,7 +72,7 @@ const DashboardNavBar: FC = () => {
 	}
 	return (
 		<div className={styles.wrapper} ref={ref}>
-			{modals.map(({ name, Component }, i) => (
+			{getDataModal(language)?.map(({ name, Component }, i) => (
 				<Modal
 					showModal={stateModals[name]}
 					isDisableClickOutside={true}
@@ -156,7 +116,7 @@ const DashboardNavBar: FC = () => {
 							/>
 						</div>
 						<div className={styles.link}>
-							{navData.map(({ name, link }, i) => (
+							{getDataNav(language).map(({ name, link }, i) => (
 								<Link
 									className={clsx(styles.item, {
 										[styles.select]: pathname.includes(link),
@@ -167,7 +127,7 @@ const DashboardNavBar: FC = () => {
 									{name}
 								</Link>
 							))}
-							{modals.map(({ title, name, Icon }, i) => (
+							{getDataModal(language).map(({ title, name, Icon }, i) => (
 								<div
 									key={`${name}${title}${i}`}
 									className={clsx(styles.item)}

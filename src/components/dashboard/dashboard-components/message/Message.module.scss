@@ -9,6 +9,9 @@
 	.avatar-wrapper {
 		width: 45px;
 	}
+	@media (max-width: 1200px) {
+		padding-left: 5%;
+	}
 	.hiz-last {
 		border-bottom-left-radius: 0px;
 
@@ -113,6 +116,9 @@
 .is-my-message {
 	justify-content: flex-end;
 	padding-right: 10%;
+	@media (max-width: 1200px) {
+		padding-right: 5%;
+	}
 	.message {
 		background-color: var(--myMessage);
 		color: var(--mainBackground);
